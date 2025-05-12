@@ -1,9 +1,9 @@
 
+import Page from "./menuAwal/Page";
 
-import Indo from "./indonesia/Indo";
 
 function App() {
-  return <Indo />;
+  return <Page />;
 }
 
 export default App;
