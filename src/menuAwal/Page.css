@@ -17,7 +17,7 @@
 }
 
 @keyframes walkAnimation {
-    from { background-position: 0 0; }
+    from { background-position: 0 50; }
     to { background-position: -400px 0; }
 }
 

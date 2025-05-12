@@ -67,7 +67,7 @@ function Page() {
                                         display: activeIndex === idx ? 'block' : 'none',
                                         backgroundImage: `url(${sprite})`,
                                         backgroundRepeat: 'no-repeat',
-                                        backgroundSize: '128px 64px', // 4 frame x 32px
+                                        backgroundSize: '400px 400px',
                                         animation: activeIndex === idx ? 'walkAnimation 0.6s steps(4) infinite' : 'none',
                                     }}
                                 />
