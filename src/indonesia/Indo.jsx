@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Controller from '../component/Controller';
-import './Indo.css';
 import '../Main.css';
+import './Indo.css';
 
 const directions = {
     up: "up",

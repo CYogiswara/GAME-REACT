@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './Page.css';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const spritesheets = [
     "/asset/character/char1.png",
@@ -10,6 +13,7 @@ const spritesheets = [
 ];
 
 function Page() {
+    let navigate = useNavigate()
     const [activeIndex, setActiveIndex] = useState(0);
     const [playerName, setPlayerName] = useState('');
 
@@ -45,6 +49,7 @@ function Page() {
         localStorage.setItem("happy", 50);
         localStorage.setItem("health", 100);
         localStorage.removeItem("currentQuest");
+        navigate("/indo");
     };
 
     return (
