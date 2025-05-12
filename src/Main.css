@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* RESPONSIVE */
+@layer utilities {
+    @media(min-width: 300px) {
+        :root {
+            --pixel-size: 1px;
+        }
+    }
+    @media(min-width: 1100px) {
+        :root {
+            --pixel-size: 2px;
+        }
+    }
+    @media(min-width: 1900px) {
+        :root {
+            --pixel-size: 3px;
+        }
+    }
+}
+
+html, body {
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pixel-art {
+    image-rendering: pixelated;
+}
+
+.game-over-image {
+    position: absolute;
+    width: calc(25 * var(--grid-cell));
+    transition: transform 1s ease-out, opacity 1.5s ease-in-out;
+    opacity: 0;
+    z-index: 1000;
+}
+.game-over-image.show {
+    transform: translate(5%, 0%) scale(1); 
+    opacity: 1;
+}
+
+.black-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+    z-index: 1000;
+}
+.info-quest {
+    font-size: 14px;
+    color: #888;
+    margin-left: 5px;
+    cursor: pointer;
+    position: relative;
+}
+.info-quest:hover::after {
+    content: attr(data-info);
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+.info-icon {
+    font-size: 14px;
+    color: #888;
+    margin-left: 5px;
+    cursor: pointer;
+    position: relative;
+}
+.info-icon:hover::after {
+    content: attr(data-cost);
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.camera{
+    width: calc(var(--pixel-size)*160);
+    height: calc(var(--pixel-size)*144);
+}
+
+.character {
+    width: calc(var(--grid-cell)* 2);
+    height: calc(var(--grid-cell)* 2);
+    position: absolute;
+    overflow: hidden;
+}
+.shadow {
+    width: calc(var(--grid-cell)* 2);
+    height: calc(var(--grid-cell)* 2);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: url("../public/asset/character/shadow.webp") no-repeat no-repeat;
+    background-size: 100%;
+}
+.character-name {
+    position: absolute;
+    top: 105%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: calc(var(--pixel-size) * 15);
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+}
+.character_spritesheet {
+    position: absolute;
+    background-size: 100%;
+    width: calc(var(--grid-cell)* 8);
+    height: calc(var(--grid-cell)* 8);
+}
+.character[facing="right"] .character_spritesheet {
+    background-position-y: calc(var(--pixel-size) * -32);
+}
+.character[facing="up"] .character_spritesheet {
+    background-position-y: calc(var(--pixel-size) * -64);
+}
+.character[facing="left"] .character_spritesheet {
+    background-position-y: calc(var(--pixel-size) * -96);
+}
+.character[walking="true"] .character_spritesheet {
+    animation: walkAnimation 0.6s steps(4) infinite;
+}
+@keyframes walkAnimation {
+    from {
+        transform: translate3d(0%, 0%, 0);
+    }
+
+    to {
+        transform: translate3d(-100%, 0%, 0);
+    }
+}
+.dpad {
+    position: absolute;
+    margin-bottom: 120px;
+    margin-right: 100px;
+    right: calc(var(--pixel-size) * 2);
+    bottom: calc(var(--pixel-size) * 2);
+    width: calc(var(--pixel-size) * 37);
+    height: calc(var(--pixel-size) * 38);
+}
+.dpad-button svg {
+    display: block;
+    height: calc(var(--pixel-size) * 13);
+}
+.dpad-up {
+    position: absolute;
+    left: calc(var(--pixel-size) * 12);
+    top: 0;
+}
+.dpad-down {
+    position: absolute;
+    bottom: var(--pixel-size);
+    left: calc(var(--pixel-size) * 12);
+}
+.dpad-left {
+    position: absolute;
+    top: calc(var(--pixel-size) * 12);
+    left: 0;
+}
+.dpad-right {
+    position: absolute;
+    top: calc(var(--pixel-size) * 12);
+    right: 0;
+}
+.dpad {
+    user-select: none;
+}
+.headline {
+    position: absolute;
+    top: calc(var(--pixel-size) * 2);
+    right: calc(var(--pixel-size) * 2);
+    width: calc(var(--pixel-size) * 75)
+}

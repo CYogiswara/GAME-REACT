@@ -1,12 +1,9 @@
-import Page from './menuAwal/Page';
-import '../src/menuAwal/Page.css';
+
+
+import Indo from "./indonesia/Indo";
 
 function App() {
-  return (
-    <div className="App">
-      <Page />
-    </div>
-  );
+  return <Indo />;
 }
 
 export default App;
