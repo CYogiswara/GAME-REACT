@@ -54,8 +54,7 @@ function Page() {
                 <img src="/asset/character/pesawat.png" className="w-50 m-auto mb-5" alt="Pesawat" />
                 <h2 className="font-mono text-center mb-5">UMN - UDIN MENJELAJAH NEGARA</h2>
             </div>
-            <hr />
-            <div className="text-center p-6 rounded-lg shadow-lg bg-gradient-to-b from-blue-500 to-green-500 h-95 w-full mt-10">
+            <div className="text-center p-6 rounded-lg shadow-lg bg-gradient-to-b from-orange-700 to-green-600 h-95 w-full mt-10">
                 <div className="flex items-center justify-center mb-4">
                     <main className="Container">
                         <div className="Character">

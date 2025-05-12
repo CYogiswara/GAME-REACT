@@ -45,6 +45,10 @@ body {
     min-height: 100vh;
     padding-top: calc(var(--pixel-size) * 18px);
     font-family: 'Dosis', sans-serif;
+    background-image: url('./backgroundAwal.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .NavigationBubble {
@@ -80,9 +84,10 @@ body {
 }
 .NextSpritesheetButton:hover {
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(240, 236, 18, 0.2);
 }
 .NextSpritesheetButton svg {
     display: block;
     width: calc(var(--pixel-size) * 4px);
 }
+
