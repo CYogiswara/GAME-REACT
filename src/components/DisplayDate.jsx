@@ -3,58 +3,58 @@ import React, { useState, useEffect } from "react";
 const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 const DisplayDate = () => {
-  const [hours, setHours] = useState(() => parseInt(localStorage.getItem("hours")) || 0);
-  const [minutes, setMinutes] = useState(() => parseInt(localStorage.getItem("minutes")) || 0);
-  const [day, setDay] = useState(() => parseInt(localStorage.getItem("day")) || 1);
-  const [weekDayIndex, setWeekDayIndex] = useState(() =>
-    daysOfWeek.indexOf(localStorage.getItem("weekDay")) >= 0
-      ? daysOfWeek.indexOf(localStorage.getItem("weekDay"))
-      : 0
-  );
+  const [time, setTime] = useState(() => ({
+    hours: parseInt(localStorage.getItem("hours")) || 0,
+    minutes: parseInt(localStorage.getItem("minutes")) || 0,
+    day: parseInt(localStorage.getItem("day")) || 1,
+    weekDayIndex:
+      daysOfWeek.indexOf(localStorage.getItem("weekDay")) >= 0
+        ? daysOfWeek.indexOf(localStorage.getItem("weekDay"))
+        : 0,
+  }));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setMinutes(prevMinutes => {
-        let newMinutes = prevMinutes + 1;
-        if (newMinutes >= 60) {
-          newMinutes = 0;
-          setHours(prevHours => {
-            let newHours = prevHours + 1;
-            if (newHours >= 24) {
-              newHours = 0;
-              setDay(prevDay => prevDay + 1);
-              setWeekDayIndex(prevIndex => (prevIndex + 1) % 7);
-            }
-            localStorage.setItem("hours", newHours);
-            return newHours;
-          });
+      setTime(prev => {
+        let { hours, minutes, day, weekDayIndex } = prev;
+
+        minutes++;
+        if (minutes >= 60) {
+          minutes = 0;
+          hours++;
+          if (hours >= 24) {
+            hours = 0;
+            day++;
+            weekDayIndex = (weekDayIndex + 1) % 7;
+          }
         }
-        localStorage.setItem("minutes", newMinutes);
-        return newMinutes;
+
+      
+        localStorage.setItem("hours", hours);
+        localStorage.setItem("minutes", minutes);
+        localStorage.setItem("day", day);
+        localStorage.setItem("weekDay", daysOfWeek[weekDayIndex]);
+
+        return { hours, minutes, day, weekDayIndex };
       });
-    }, 300);
+    }, 300); 
+
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("day", day);
-  }, [day]);
-
-  useEffect(() => {
-    localStorage.setItem("weekDay", daysOfWeek[weekDayIndex]);
-  }, [weekDayIndex]);
-
-  const getGreeting = (hour) => {
-    if (hour >= 3 && hour < 11) return "Good Morning";
-    if (hour >= 11 && hour < 15) return "Good Afternoon";
-    if (hour >= 15 && hour < 19) return "Good Evening";
-    return "Good Night";
-  };
+  const { hours, minutes, day, weekDayIndex } = time;
 
   const formatTime = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
   const greeting = getGreeting(hours);
   const weekDay = daysOfWeek[weekDayIndex];
-  const playerName = localStorage.getItem("playerName");
+  const playerName = localStorage.getItem("playerName") || "Player";
+
+  function getGreeting(hour) {
+    if (hour >= 3 && hour < 11) return "Good Morning";
+    if (hour >= 11 && hour < 15) return "Good Afternoon";
+    if (hour >= 15 && hour < 19) return "Good Evening";
+    return "Good Night";
+  }
 
   return (
     <div>
