@@ -10,7 +10,36 @@
     }
 }
 
-.map {
+/* RESPONSIVE */
+@layer utilities {
+    @media(min-width: 300px) {
+        :root {
+            --pixel-size: 1px;
+        }
+    }
+    @media(min-width: 1100px) {
+        :root {
+            --pixel-size: 2px;
+        }
+    }
+    @media(min-width: 1900px) {
+        :root {
+            --pixel-size: 3px;
+        }
+    }
+}
+
+.indo-root {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.indo-root .indo-map {
     image-rendering: pixelated;
     background-image: url("./mapIndo.png");
     background-size: 100%;
@@ -19,9 +48,7 @@
     position: relative;
 }
 
-
-/* MONEY & DATE*/
-.money-displayed{
+.indo-root .indo-money-displayed {
     position: absolute;
     top: calc(var(--pixel-size) * 326);
     left: calc(var(--pixel-size) * 22);
@@ -30,14 +57,14 @@
     font-size: calc(var(--pixel-size) * 10);
     color:rgb(255, 226, 62);
 }
-.money-picture{
+.indo-root .indo-money-picture {
     position: absolute;
     top: calc(var(--pixel-size) * 325);
     left: calc(var(--pixel-size) * 2);
     width: calc(var(--pixel-size) * 17);
     font-weight: bold;
 }
-.date{
+.indo-root .indo-date {
     position: absolute;
     top: calc(var(--pixel-size) * 310);
     left: calc(var(--pixel-size) * 2);
@@ -47,9 +74,8 @@
     color: #b1fc04;
 }
 
-
 /* BUTTON */
-.map-button{
+.indo-root .indo-map-button {
     position: absolute;
     bottom: calc(var(--pixel-size) * 220);
     right: calc(var(--pixel-size) * 20);
@@ -61,7 +87,7 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: calc(var(--pixel-size) * 10);
 }
-.sleep-button{
+.indo-root .indo-sleep-button {
     position: absolute;
     bottom: calc(var(--pixel-size) * 215);
     right: calc(var(--pixel-size) * 290);
@@ -73,8 +99,7 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: calc(var(--pixel-size) * 10);
 }
-
-.foto-button{
+.indo-root .indo-foto-button {
     position: absolute;
     bottom: calc(var(--pixel-size) * 220);
     right: calc(var(--pixel-size) * 430);
@@ -87,8 +112,7 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: calc(var(--pixel-size) * 10);
 }
-
-.mandi-button{
+.indo-root .indo-mandi-button {
     position: absolute;
     bottom: calc(var(--pixel-size) * 220);
     right: calc(var(--pixel-size) * 350);
@@ -101,8 +125,7 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: calc(var(--pixel-size) * 10);
 }
-
-.makan-button{
+.indo-root .indo-makan-button {
     position: absolute;
     bottom: calc(var(--pixel-size) * 220);
     right: calc(var(--pixel-size) * 265);
@@ -115,8 +138,7 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: calc(var(--pixel-size) * 10);
 }
-
-.tenda-button{
+.indo-root .indo-tenda-button {
     position: absolute;
     bottom: calc(var(--pixel-size) * 220);
     right: calc(var(--pixel-size) * 182);
@@ -129,8 +151,7 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: calc(var(--pixel-size) * 10);
 }
-
-.guild-button{
+.indo-root .indo-guild-button {
     position: absolute;
     bottom: calc(var(--pixel-size) * 225);
     right: calc(var(--pixel-size) * 527);
@@ -144,9 +165,8 @@
     font-size: calc(var(--pixel-size) * 10);
 }
 
-
 /* BAR */
-#bath {
+.indo-root #bath {
     position: absolute;
     top: calc(var(--pixel-size) * 315);
     left: calc(var(--pixel-size) * 610);
@@ -155,15 +175,14 @@
     background-color:rgb(73, 39, 39);
     border: 1px solid #ccc;
 }
-.bath-picture{
+.indo-root .indo-bath-picture {
     position: absolute;
     top: calc(var(--pixel-size) * 314);
     left: calc(var(--pixel-size) * 599);
     width: calc(var(--pixel-size) * 10);
     font-weight: bold;
 }
-
-#hunger {
+.indo-root #hunger {
     position: absolute;
     top: calc(var(--pixel-size) * 315);
     left: calc(var(--pixel-size) * 565);
@@ -172,15 +191,14 @@
     background-color:rgb(73, 39, 39);
     border: 1px solid #ccc;
 }
-.hunger-picture{
+.indo-root .indo-hunger-picture {
     position: absolute;
     top: calc(var(--pixel-size) * 311);
     left: calc(var(--pixel-size) * 550);
     width: calc(var(--pixel-size) * 15);
     font-weight: bold;
 }
-
-#sleeps {
+.indo-root #sleeps {
     position: absolute;
     top: calc(var(--pixel-size) * 315);
     left: calc(var(--pixel-size) * 518);
@@ -189,15 +207,14 @@
     background-color:rgb(73, 39, 39);
     border: 1px solid #ccc;
 }
-.sleeps-picture{
+.indo-root .indo-sleeps-picture {
     position: absolute;
     top: calc(var(--pixel-size) * 314);
     left: calc(var(--pixel-size) * 505);
     width: calc(var(--pixel-size) * 10);
     font-weight: bold;
 }
-
-#happy {
+.indo-root #happy {
     position: absolute;
     top: calc(var(--pixel-size) * 315);
     left: calc(var(--pixel-size) * 475);
@@ -206,15 +223,14 @@
     background-color:rgb(73, 39, 39);
     border: 1px solid #ccc;
 }
-.happy-picture{
+.indo-root .indo-happy-picture {
     position: absolute;
     top: calc(var(--pixel-size) * 314);
     left: calc(var(--pixel-size) * 460);
     width: calc(var(--pixel-size) * 10);
     font-weight: bold;
 }
-
-#health {
+.indo-root #health {
     position: absolute;
     top: calc(var(--pixel-size) * 350);
     left: calc(var(--pixel-size) * 520);
@@ -223,7 +239,7 @@
     background-color:rgb(73, 39, 39);
     border: 1px solid #ccc;
 }
-.health-picture{
+.indo-root .indo-health-picture {
     position: absolute;
     top: calc(var(--pixel-size) * 349);
     left: calc(var(--pixel-size) * 505);
@@ -231,10 +247,8 @@
     font-weight: bold;
 }
 
-
-
 /* MAKAN */
-.makan-options {
+.indo-root .indo-makan-options {
     top: calc(var(--pixel-size) * 50); 
     left: calc(var(--pixel-size) * 420);
     position: absolute;
@@ -246,23 +260,22 @@
     border-radius: 10px;
     z-index: 10;
 }
-.makan-options.hidden {
+.indo-root .indo-makan-options.hidden {
     display: none;
 }
-.makan-options button {
+.indo-root .indo-makan-options button {
     padding: 10px;
     margin: 5px 0;
     background-color:rgb(235, 234, 180);
     border-radius: 10px;
     cursor: pointer;
 }
-.makan-options button:hover {
-    background-color:rgb(235, 234, 180);
+.indo-root .indo-makan-options button:hover {
     background-color:rgb(212, 173, 64);
 }
 
 /* QUEST */
-#quest-display {
+.indo-root #quest-display {
     top: calc(var(--pixel-size) * 30); 
     left: calc(var(--pixel-size) * -110);
     position: absolute;
@@ -275,4 +288,176 @@
     font-size: calc(var(--pixel-size) * 8);
 }
 
+/* Pixel art */
+.indo-root .pixel-art {
+    image-rendering: pixelated;
+}
 
+/* Game over image */
+.indo-root .indo-game-over-image {
+    position: absolute;
+    width: calc(25 * var(--grid-cell));
+    transition: transform 1s ease-out, opacity 1.5s ease-in-out;
+    opacity: 0;
+    z-index: 1000;
+}
+.indo-root .indo-game-over-image.show {
+    transform: translate(5%, 0%) scale(1); 
+    opacity: 1;
+}
+
+/* Black screen */
+.indo-root .indo-black-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+    z-index: 1000;
+}
+
+/* Info quest & icon */
+.indo-root .indo-info-quest {
+    font-size: 14px;
+    color: #888;
+    margin-left: 5px;
+    cursor: pointer;
+    position: relative;
+}
+.indo-root .indo-info-quest:hover::after {
+    content: attr(data-info);
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+.indo-root .indo-info-icon {
+    font-size: 14px;
+    color: #888;
+    margin-left: 5px;
+    cursor: pointer;
+    position: relative;
+}
+.indo-root .indo-info-icon:hover::after {
+    content: attr(data-cost);
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* Camera, character, shadow, etc */
+.indo-root .indo-camera {
+    width: calc(var(--pixel-size)*160);
+    height: calc(var(--pixel-size)*144);
+}
+.indo-root .indo-character {
+    width: calc(var(--grid-cell)* 2);
+    height: calc(var(--grid-cell)* 2);
+    position: absolute;
+    overflow: hidden;
+}
+.indo-root .indo-shadow {
+    width: calc(var(--grid-cell)* 2);
+    height: calc(var(--grid-cell)* 2);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: url("../../public/asset/character/shadow.webp") no-repeat no-repeat;
+    background-size: 100%;
+}
+.indo-root .indo-character-name {
+    position: absolute;
+    top: 105%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: calc(var(--pixel-size) * 15);
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+}
+.indo-root .indo-character_spritesheet {
+    position: absolute;
+    background-size: 100%;
+    width: calc(var(--grid-cell)* 8);
+    height: calc(var(--grid-cell)* 8);
+}
+.indo-root .indo-character[facing="right"] .indo-character_spritesheet {
+    background-position-y: calc(var(--pixel-size) * -32);
+}
+.indo-root .indo-character[facing="up"] .indo-character_spritesheet {
+    background-position-y: calc(var(--pixel-size) * -64);
+}
+.indo-root .indo-character[facing="left"] .indo-character_spritesheet {
+    background-position-y: calc(var(--pixel-size) * -96);
+}
+.indo-root .indo-character[walking="true"] .indo-character_spritesheet {
+    animation: walkAnimation 0.6s steps(4) infinite;
+}
+@keyframes walkAnimation {
+    from {
+        transform: translate3d(0%, 0%, 0);
+    }
+    to {
+        transform: translate3d(-100%, 0%, 0);
+    }
+}
+
+/* Dpad & headline */
+.dpad {
+    position: absolute;
+    margin-bottom: 120px;
+    margin-right: 100px;
+    right: calc(var(--pixel-size) * 2);
+    bottom: calc(var(--pixel-size) * 2);
+    width: calc(var(--pixel-size) * 37);
+    height: calc(var(--pixel-size) * 38);
+    user-select: none;
+}
+.dpad-button svg {
+    display: block;
+    height: calc(var(--pixel-size) * 13);
+}
+.dpad-up {
+    position: absolute;
+    left: calc(var(--pixel-size) * 12);
+    top: 0;
+}
+.dpad-down {
+    position: absolute;
+    bottom: var(--pixel-size);
+    left: calc(var(--pixel-size) * 12);
+}
+.dpad-left {
+    position: absolute;
+    top: calc(var(--pixel-size) * 12);
+    left: 0;
+}
+.dpad-right {
+    position: absolute;
+    top: calc(var(--pixel-size) * 12);
+    right: 0;
+}
+.headline {
+    position: absolute;
+    top: calc(var(--pixel-size) * 2);
+    right: calc(var(--pixel-size) * 2);
+    width: calc(var(--pixel-size) * 75);
+}

@@ -1,8 +1,90 @@
 import React, { useState } from 'react';
-import './Page.css';
 import { useNavigate } from 'react-router-dom';
 
+// Inline CSS khusus Page
+const pageStyle = `
+.page-root {
+    --pixel-size: 4;
+    
+    background-image: linear-gradient(180deg,rgb(243, 149, 26) 0%,rgb(40, 139, 0) 100%);
+}
+.page-root .Character {
+    width: calc(var(--pixel-size) * 32px);
+    height: calc(var(--pixel-size) * 32px);
+    overflow: hidden;
+    position: relative;
+    margin: calc(var(--pixel-size) * 6px) auto;
+}
+@keyframes pageWalkAnimation {
+    from { background-position: 0 50; }
+    to { background-position: -400px 0; }
+}
+.page-root .Character_sprite-sheet {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 15px;
+    display: none;
+    background-repeat: no-repeat;
+    background-size: 400% 390%; 
+}
+.page-root .Character_sprite-sheet.active {
+    display: block;
+    animation: pageWalkAnimation 0.6s steps(4) infinite;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(180deg,rgb(22, 196, 95) 0%,rgb(19, 151, 107) 100%);
+    height: 100%;
+    min-height: 100vh;
+    padding-top: calc(var(--pixel-size) * 18px);
+    font-family: 'Dosis', sans-serif;
 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.page-root .NavigationBubble {
+    width: calc(var(--pixel-size) * 3px);
+    height: calc(var(--pixel-size) * 3px);
+    background: #2497cc;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    box-sizing: content-box;
+}
+.page-root .NavigationBubble.active {
+    background: #fff;
+}
+.page-root .NextSpritesheetButton {
+    border: 0;
+    background: none;
+    padding: 1px;
+    top: 450px;
+    margin-left: 120px;
+    margin-right: 120px;
+    position: absolute
+}
+.page-root .NextSpritesheetButton--prev {
+    left: 0;
+}
+.page-root .NextSpritesheetButton--next {
+    right: 0;
+}
+.page-root .NextSpritesheetButton:hover {
+    cursor: pointer;
+    background: rgba(240, 236, 18, 0.2);
+}
+.page-root .NextSpritesheetButton svg {
+    display: block;
+    width: calc(var(--pixel-size) * 4px);
+}
+`;
 
 const spritesheets = [
     "/asset/character/char1.png",
@@ -53,7 +135,8 @@ function Page() {
     };
 
     return (
-        <div>
+        <div className='page-root'>
+            <style>{pageStyle}</style>
             <div>
                 <img src="/asset/character/pesawat.png" className="w-50 m-auto mb-5" alt="Pesawat" />
                 <h2 className="font-mono text-center mb-5">UMN - UDIN MENJELAJAH NEGARA</h2>
@@ -71,7 +154,7 @@ function Page() {
                                         backgroundImage: `url(${sprite})`,
                                         backgroundRepeat: 'no-repeat',
                                         backgroundSize: '400px 400px',
-                                        animation: activeIndex === idx ? 'walkAnimation 0.6s steps(4) infinite' : 'none',
+                                        animation: activeIndex === idx ? 'pageWalkAnimation 0.6s steps(4) infinite' : 'none',
                                     }}
                                 />
                             ))}

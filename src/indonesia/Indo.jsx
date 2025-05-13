@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import Controller from '../component/Controller';
-import '../Main.css';
 import './Indo.css';
 
 const directions = {
@@ -80,35 +79,37 @@ function Indo() {
     const playerName = localStorage.getItem("playerName");
 
     return (
-        <>
-            <div className="black-screen" id="blackScreen"></div>
-            <div className="frame">
-                <div className="camera">
-                    <div className="map pixel-art" style={mapStyle}>
-                        <div>
-                            <div className="character-name">{playerName}</div>
-                            <div
-                                className="character"
-                                facing={facing}
-                                walking={walking ? "true" : "false"}
-                                style={characterStyle}
-                            >
-                                <div className="shadow pixel-art"></div>
+        <div className="indo-body">
+            <div className="indo-root">
+                <div className="black-screen" id="blackScreen"></div>
+                <div className="indo-frame">
+                    <div className="indo-camera">
+                        <div className="indo-map indo-pixel-art" style={mapStyle}>
+                            <div>
+                                <div className="indo-character-name">{playerName}</div>
                                 <div
-                                    className="character_spritesheet pixel-art"
-                                    style={{
-                                        backgroundImage: selectedCharacter
-                                            ? `url('${selectedCharacter}')`
-                                            : "none"
-                                    }}
-                                ></div>
+                                    className="indo-character"
+                                    facing={facing}
+                                    walking={walking ? "true" : "false"}
+                                    style={characterStyle}
+                                >
+                                    <div className="indo-shadow pixel-art"></div>
+                                    <div
+                                        className="indo-character_spritesheet pixel-art"
+                                        style={{
+                                            backgroundImage: selectedCharacter
+                                                ? `url('${selectedCharacter}')`
+                                                : "none"
+                                        }}
+                                    ></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <Controller onDirectionChange={setHeldDirections} />
             </div>
-            <Controller onDirectionChange={setHeldDirections} />
-        </>
+        </div>
     );
 }
 
