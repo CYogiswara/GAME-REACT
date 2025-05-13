@@ -64,7 +64,7 @@
     width: calc(var(--pixel-size) * 17);
     font-weight: bold;
 }
-.indo-root .indo-date {
+.indo-root .date {
     position: absolute;
     top: calc(var(--pixel-size) * 310);
     left: calc(var(--pixel-size) * 2);
@@ -294,20 +294,20 @@
 }
 
 /* Game over image */
-.indo-root .indo-game-over-image {
+.indo-root .game-over-image {
     position: absolute;
     width: calc(25 * var(--grid-cell));
     transition: transform 1s ease-out, opacity 1.5s ease-in-out;
     opacity: 0;
     z-index: 1000;
 }
-.indo-root .indo-game-over-image.show {
+.indo-root .game-over-image.show {
     transform: translate(5%, 0%) scale(1); 
     opacity: 1;
 }
 
 /* Black screen */
-.indo-root .indo-black-screen {
+.indo-root .black-screen {
     position: fixed;
     top: 0;
     left: 0;
@@ -321,14 +321,14 @@
 }
 
 /* Info quest & icon */
-.indo-root .indo-info-quest {
+.indo-root .info-quest {
     font-size: 14px;
     color: #888;
     margin-left: 5px;
     cursor: pointer;
     position: relative;
 }
-.indo-root .indo-info-quest:hover::after {
+.indo-root .info-quest:hover::after {
     content: attr(data-info);
     position: absolute;
     top: -25px;
@@ -341,14 +341,14 @@
     font-size: 12px;
     white-space: nowrap;
 }
-.indo-root .indo-info-icon {
+.indo-root .info-icon {
     font-size: 14px;
     color: #888;
     margin-left: 5px;
     cursor: pointer;
     position: relative;
 }
-.indo-root .indo-info-icon:hover::after {
+.indo-root .info-icon:hover::after {
     content: attr(data-cost);
     position: absolute;
     top: -25px;
@@ -363,17 +363,17 @@
 }
 
 /* Camera, character, shadow, etc */
-.indo-root .indo-camera {
+.indo-root .camera {
     width: calc(var(--pixel-size)*160);
     height: calc(var(--pixel-size)*144);
 }
-.indo-root .indo-character {
+.indo-root .character {
     width: calc(var(--grid-cell)* 2);
     height: calc(var(--grid-cell)* 2);
     position: absolute;
     overflow: hidden;
 }
-.indo-root .indo-shadow {
+.indo-root .shadow {
     width: calc(var(--grid-cell)* 2);
     height: calc(var(--grid-cell)* 2);
     position: absolute;
@@ -382,33 +382,32 @@
     background: url("../../public/asset/character/shadow.webp") no-repeat no-repeat;
     background-size: 100%;
 }
-.indo-root .indo-character-name {
-    position: absolute;
+.indo-root .character-name {
+    position: fixed;
     top: 105%;
     left: 50%;
     transform: translateX(-50%);
-    font-size: calc(var(--pixel-size) * 15);
+    font-size: calc(var(--pixel-size) * 18);
     font-weight: bold;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    border-radius: 4px;
 }
-.indo-root .indo-character_spritesheet {
+.indo-root .character_spritesheet {
     position: absolute;
     background-size: 100%;
     width: calc(var(--grid-cell)* 8);
     height: calc(var(--grid-cell)* 8);
 }
-.indo-root .indo-character[facing="right"] .indo-character_spritesheet {
+.indo-root .character[facing="right"] .character_spritesheet {
     background-position-y: calc(var(--pixel-size) * -32);
 }
-.indo-root .indo-character[facing="up"] .indo-character_spritesheet {
+.indo-root .character[facing="up"] .character_spritesheet {
     background-position-y: calc(var(--pixel-size) * -64);
 }
-.indo-root .indo-character[facing="left"] .indo-character_spritesheet {
+.indo-root .character[facing="left"] .character_spritesheet {
     background-position-y: calc(var(--pixel-size) * -96);
 }
-.indo-root .indo-character[walking="true"] .indo-character_spritesheet {
+.indo-root .character[walking="true"] .character_spritesheet {
     animation: walkAnimation 0.6s steps(4) infinite;
 }
 @keyframes walkAnimation {
