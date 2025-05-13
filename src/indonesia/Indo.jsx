@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Controller from '../components/Controller';
 import DisplayDate from "../components/DisplayDate";
+import Buttons from "../components/buttons";
+import Status from "../components/status";
 import './Indo.css';
 
 const directions = {
@@ -10,13 +13,25 @@ const directions = {
     right: "right",
 };
 
+
+
 function Indo() {
+    let Navigate = useNavigate()
     const selectedCharacter = localStorage.getItem("selectedCharacter");
     const [position, setPosition] = useState({ x: 565, y: 125 });
     const [facing, setFacing] = useState("down");
     const [walking, setWalking] = useState(false);
     const [heldDirections, setHeldDirections] = useState([]);
     const speed = 1;
+    const [money, setMoney] = useState(100)
+    const [bath, setBath] = useState(() => Number(localStorage.getItem("bath")) || 50)
+    const [hunger, setHunger] = useState(() => Number(localStorage.getItem("hunger")) || 50)
+    const [sleep, setSleep] = useState(() => Number(localStorage.getItem("sleep")) || 50)
+    const [happiness, setHappiness] = useState(() => Number(localStorage.getItem("happiness")) || 50)
+    const [health, setHealth] = useState(() => Number(localStorage.getItem("health")) || 50)
+    const [currentQuest, setCurrentQuest] = useState([])
+    const [questStarted, setQuestStarted] = useState(false)
+    const [showFoods, setShowFoods] = useState(false)
     
     // Refs for animation
     const positionRef = useRef(position);
@@ -76,6 +91,47 @@ function Indo() {
         transform: `translate3d(${position.x * pixelSize}px, ${position.y * pixelSize}px, 0)`
     };
 
+    {/* SLEEP */ }
+
+    function incrementSleep(){
+        setSleep(prevSleep => prevSleep + 100)
+        console.log(sleep)
+    }
+    
+    function decrementSleep(){
+        setSleep(prevSleep => prevSleep -= 1)
+    }
+    
+
+    {/* FOTO */ }
+    function handleFoto() {
+        alert("Kamu sedang foto")
+        setMoney(prevMoney => prevMoney += 25)
+    }
+
+    {/* MANDI */ }
+
+    function incrementShower() {
+        let shower = 100
+        setBath(bath + shower)
+    }
+
+    function decrementShower() {
+        setBath(prevBath => prevBath -= 1)
+        console.log(bath)
+    }
+
+     {/* MAKAN */ }
+    const foods = [
+        { name: "Popmie", cost: "$2", harga: 2, addBar: 20 },
+        { name: "Nasi Padang", cost: "$4", harga: 4, addBar: 40 },
+        { name: "Eskrim", cost: "$1", harga: 1, addBar: 10 }
+    ]
+
+    function MakanClicked(){
+        setShowFoods(true)
+    }
+
 
     return (
         <>
@@ -97,7 +153,13 @@ function Indo() {
                                         style={{backgroundImage: `url('${selectedCharacter}')`}}
                                     ></div>
                                 </div>
+                                <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health}/>
                                 <DisplayDate/>
+                                <Buttons value="Map" onClick={() => Navigate('/map')} />
+                                <Buttons value="Sleep" onClick={incrementSleep}/>
+                                <Buttons value="Foto" onClick={handleFoto} />
+                                <Buttons value="Mandi" onClick={incrementShower} />
+                                <Buttons value="Makan" onClick={MakanClicked} />
                             </div>
                         </div>
                     </div>
