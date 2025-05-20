@@ -48,7 +48,7 @@
     position: relative;
 }
 
-.indo-root .indo-money-displayed {
+.indo-root .money-displayed {
     position: absolute;
     top: calc(var(--pixel-size) * 326);
     left: calc(var(--pixel-size) * 22);
@@ -57,7 +57,7 @@
     font-size: calc(var(--pixel-size) * 10);
     color:rgb(255, 226, 62);
 }
-.indo-root .indo-money-picture {
+.indo-root .money-picture {
     position: absolute;
     top: calc(var(--pixel-size) * 325);
     left: calc(var(--pixel-size) * 2);
@@ -75,7 +75,7 @@
 }
 
 /* BUTTON */
-.indo-root .indo-map-button {
+.indo-root .map-button {
     position: absolute;
     bottom: calc(var(--pixel-size) * 220);
     right: calc(var(--pixel-size) * 20);
@@ -87,7 +87,7 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: calc(var(--pixel-size) * 10);
 }
-.indo-root .indo-sleep-button {
+.indo-root .sleep-button {
     position: absolute;
     bottom: calc(var(--pixel-size) * 215);
     right: calc(var(--pixel-size) * 290);
@@ -99,7 +99,7 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: calc(var(--pixel-size) * 10);
 }
-.indo-root .indo-foto-button {
+.indo-root .foto-button {
     position: absolute;
     bottom: calc(var(--pixel-size) * 220);
     right: calc(var(--pixel-size) * 430);
@@ -112,7 +112,7 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: calc(var(--pixel-size) * 10);
 }
-.indo-root .indo-mandi-button {
+.indo-root .mandi-button {
     position: absolute;
     bottom: calc(var(--pixel-size) * 220);
     right: calc(var(--pixel-size) * 350);
@@ -125,7 +125,7 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: calc(var(--pixel-size) * 10);
 }
-.indo-root .indo-makan-button {
+.indo-root .makan-button {
     position: absolute;
     bottom: calc(var(--pixel-size) * 220);
     right: calc(var(--pixel-size) * 265);
@@ -138,7 +138,7 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: calc(var(--pixel-size) * 10);
 }
-.indo-root .indo-tenda-button {
+.indo-root .tenda-button {
     position: absolute;
     bottom: calc(var(--pixel-size) * 220);
     right: calc(var(--pixel-size) * 182);
@@ -151,7 +151,7 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: calc(var(--pixel-size) * 10);
 }
-.indo-root .indo-guild-button {
+.indo-root .guild-button {
     position: absolute;
     bottom: calc(var(--pixel-size) * 225);
     right: calc(var(--pixel-size) * 527);
@@ -175,7 +175,7 @@
     background-color:rgb(73, 39, 39);
     border: 1px solid #ccc;
 }
-.indo-root .indo-bath-picture {
+.indo-root .bath-picture {
     position: absolute;
     top: calc(var(--pixel-size) * 314);
     left: calc(var(--pixel-size) * 599);
@@ -191,7 +191,7 @@
     background-color:rgb(73, 39, 39);
     border: 1px solid #ccc;
 }
-.indo-root .indo-hunger-picture {
+.indo-root .hunger-picture {
     position: absolute;
     top: calc(var(--pixel-size) * 311);
     left: calc(var(--pixel-size) * 550);
@@ -207,7 +207,7 @@
     background-color:rgb(73, 39, 39);
     border: 1px solid #ccc;
 }
-.indo-root .indo-sleeps-picture {
+.indo-root .sleeps-picture {
     position: absolute;
     top: calc(var(--pixel-size) * 314);
     left: calc(var(--pixel-size) * 505);
@@ -223,7 +223,7 @@
     background-color:rgb(73, 39, 39);
     border: 1px solid #ccc;
 }
-.indo-root .indo-happy-picture {
+.indo-root .happy-picture {
     position: absolute;
     top: calc(var(--pixel-size) * 314);
     left: calc(var(--pixel-size) * 460);
@@ -239,7 +239,7 @@
     background-color:rgb(73, 39, 39);
     border: 1px solid #ccc;
 }
-.indo-root .indo-health-picture {
+.indo-root .health-picture {
     position: absolute;
     top: calc(var(--pixel-size) * 349);
     left: calc(var(--pixel-size) * 505);
