@@ -460,3 +460,7 @@
     right: calc(var(--pixel-size) * 2);
     width: calc(var(--pixel-size) * 75);
 }
+
+.button-map{
+    background-color: tomato;
+}

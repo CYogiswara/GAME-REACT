@@ -157,7 +157,7 @@ function Indo() {
                                 </div>
                                 <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health}/>
                                 <DisplayDate/>
-                                <div class="button-map "><Buttons value="Map" onClick={() => Navigate('/map')} /></div>
+                                <div class="button-map "><Buttons value="Map" className="button-map" onClick={() => Navigate('/map')} /></div>
                                 <div class="button-sleep "><Buttons value="Sleep" onClick={incrementSleep}/></div>
                                 <div class="button-foto"><Buttons value="Foto" onClick={handleFoto} /></div>
                                 <div class="button-mandi"><input className="mandi-button" type="button" value="Mandi" onClick={incrementShower}></input></div>
