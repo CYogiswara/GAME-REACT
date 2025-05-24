@@ -33,7 +33,7 @@ function Indo() {
     const [currentQuest, setCurrentQuest] = useState([])
     const [questStarted, setQuestStarted] = useState(false)
     const [showFoods, setShowFoods] = useState(false)
-    
+
     // Refs for animation
     const positionRef = useRef(position);
     const heldDirectionsRef = useRef(heldDirections);
@@ -81,7 +81,6 @@ function Indo() {
         return () => window.cancelAnimationFrame(animationFrameId);
     }, []);
 
-    // Style for map and character
     const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--pixel-size')) || 2;
     const camera_left = pixelSize * 66;
     const camera_top = pixelSize * 42;
@@ -92,11 +91,11 @@ function Indo() {
         transform: `translate3d(${position.x * pixelSize}px, ${position.y * pixelSize}px, 0)`
     };
     {/*==================================== SLEEP ====================================*/ }
-    function incrementSleep(){
+    function incrementSleep() {
         setSleep(prevSleep => prevSleep + 100)
         console.log(sleep)
     }
-    function decrementSleep(){
+    function decrementSleep() {
         setSleep(prevSleep => prevSleep -= 1)
     }
     {/*==================================== FOTO =====================================*/ }
@@ -119,7 +118,7 @@ function Indo() {
         { name: "Nasi Padang", cost: "$4", harga: 4, addBar: 40 },
         { name: "Eskrim", cost: "$1", harga: 1, addBar: 10 }
     ]
-    function MakanClicked(){
+    function MakanClicked() {
         setShowFoods(true)
     }
 
@@ -152,17 +151,22 @@ function Indo() {
                                     <div className="shadow pixel-art"></div>
                                     <div
                                         className="character_spritesheet pixel-art"
-                                        style={{backgroundImage: `url('${selectedCharacter}')`}}
+                                        style={{ backgroundImage: `url('${selectedCharacter}')` }}
                                     ></div>
                                 </div>
-                                <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health}/>
-                                <DisplayDate/>
-                                <div class="button-map "><Buttons value="Map" className="button-map" onClick={() => Navigate('/map')} /></div>
-                                <div class="button-sleep "><Buttons value="Sleep" onClick={incrementSleep}/></div>
-                                <div class="button-foto"><Buttons value="Foto" onClick={handleFoto} /></div>
-                                <div class="button-mandi"><input className="mandi-button" type="button" value="Mandi" onClick={incrementShower}></input></div>
-                                
-                                <Buttons value="Makan" onClick={MakanClicked} />
+                                <div id="quest-display">
+                                    <h3>Quests List</h3>
+                                    <ul id="quest-list"></ul>
+                                </div>
+                                <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health} />
+                                <DisplayDate />
+                                <div class="button-map"><Buttons value="Map" className="map-button" onClick={() => Navigate('/map')} /></div>
+                                <div class="button-sleep"><Buttons value="Sleep" className={"sleep-button"} onClick={incrementSleep} /></div>
+                                <div class="button-foto"><Buttons value="Foto" className={"foto-button"} onClick={handleFoto} /></div>
+                                <div class="button-mandi"><Buttons value="Mandi" className={"mandi-button"} onClick={incrementShower}></Buttons></div>
+                                <div class="button-tenda"><Buttons value="Tenda" className={"tenda-button"} onClick={onclick}></Buttons></div>
+                                <div class="button-makan"><Buttons value="Makan" className={"makan-button"} onClick={MakanClicked}></Buttons></div>
+                                <div class="button-guild"><Buttons value="Guild" className={"guild-button"} onClick={onclick}></Buttons></div>
                             </div>
                         </div>
                     </div>

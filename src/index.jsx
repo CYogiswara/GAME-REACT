@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Page from './menuAwal/Page';
+import Page from './allMenu/Page';
 import Indo from './indonesia/Indo';
+import Map from './allMenu/Map';
 
 
 
@@ -13,7 +14,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Page/>} />
-        <Route path="/indo" element={<Indo/>} />
+        <Route path="/Indo" element={<Indo/>} />
+        <Route path="/Map" element={<Map/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

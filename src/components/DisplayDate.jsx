@@ -37,7 +37,7 @@ const DisplayDate = () => {
 
         return { hours, minutes, day, weekDayIndex };
       });
-    }, 300); 
+    }, 1000); 
 
     return () => clearInterval(interval);
   }, []);
