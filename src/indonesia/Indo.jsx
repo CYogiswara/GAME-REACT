@@ -4,6 +4,7 @@ import Controller from '../components/Controller';
 import DisplayDate from "../components/DisplayDate";
 import Buttons from "../components/buttons";
 import Status from "../components/status";
+import FoodButton from "../components/foodButtons";
 import './Indo.css';
 
 const directions = {
@@ -122,7 +123,25 @@ function Indo() {
         setShowFoods(true)
     }
 
+    function handleMakan(food) {
+        const blackScreen = document.getElementById("blackScreen");
+        blackScreen.style.opacity = "1";
+        blackScreen.style.pointerEvents = "auto";
+        
+            alert(`Kamu sedang makan ${food.name}`);
+            // function cek quest
 
+            // Update bar hunger
+            setHunger(prev => Math.min(prev + food.addBar, 100));
+
+            // Kurangi uang
+            setMoney(prevMoney => prevMoney - food.harga);
+
+            // Layar hitam menghilang
+            blackScreen.style.opacity = "0";
+            blackScreen.style.pointerEvents = "none";
+            setShowFoods(false)
+    }
 
     useEffect(() => {
         const mapX = 565;
@@ -166,6 +185,14 @@ function Indo() {
                                 <div class="button-mandi"><Buttons value="Mandi" className={"mandi-button"} onClick={incrementShower}></Buttons></div>
                                 <div class="button-tenda"><Buttons value="Tenda" className={"tenda-button"} onClick={onclick}></Buttons></div>
                                 <div class="button-makan"><Buttons value="Makan" className={"makan-button"} onClick={MakanClicked}></Buttons></div>
+                                {showFoods && (
+                                <div id="makanOptions">
+                                    <h4>Pilih Makanan</h4>
+                                    {foods.map((food, index)=>(
+                                        <FoodButton key={index} food={food} onClick={handleMakan}/>
+                                    ))}
+                                </div>
+                            )}
                                 <div class="button-guild"><Buttons value="Guild" className={"guild-button"} onClick={onclick}></Buttons></div>
                             </div>
                         </div>

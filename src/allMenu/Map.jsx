@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 
 function Map() {
     
@@ -192,36 +192,36 @@ function Map() {
             <style>{mapStyle}</style>
             <div className="bg-gray-800 flex justify-center items-center h-screen map-root">
                 <div className="relative">
-                    <a href="../../indonesia.html" id="indoMap" className="flag">
+                    <Link to="/Indo" id="indoMap" className="flag">
                         <img src="/asset/map/indoFlag.png" />
                         <div className="description">
                             <h1>pulang ke Indonesia tidak akan mengeluarkan biaya apa apa</h1>
                         </div>
-                    </a>
-                    <a href="../../france.html" id="franceMap" className="flag">
+                    </Link>
+                    <Link to="../../france.html" id="franceMap" className="flag">
                         <img src="/asset/map/franceFlag.png" />
                         <div className="description">
                             <h1>Trip ke Prancis akan mengeluarkan biaya sebesar $15</h1>
                         </div>
-                    </a>
-                    <a href="../../japan.html" id="japanMap" className="flag">
+                    </Link>
+                    <Link to="../../japan.html" id="japanMap" className="flag">
                         <img src="/asset/map/japanFlag.png" />
                         <div className="description">
                             <h1>Trip ke Jepang akan mengeluarkan biaya sebesar $30</h1>
                         </div>
-                    </a>
-                    <a href="../../mesir.html" id="mesirMap" className="flag">
+                    </Link>
+                    <Link to="../../mesir.html" id="mesirMap" className="flag">
                         <img src="/asset/map/mesirFlag.png" />
                         <div className="description">
                             <h1>Trip ke Mesir akan mengeluarkan biaya sebesar $20</h1>
                         </div>
-                    </a>
-                    <a href="../../usa.html" id="usaMap" className="flag">
+                    </Link>
+                    <Link to="../../usa.html" id="usaMap" className="flag">
                         <img src=".//asset/map/usaFlag.png" />
                         <div className="description">
                             <h1>Trip ke USA akan mengeluarkan biaya sebesar $15</h1>
                         </div>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </>
