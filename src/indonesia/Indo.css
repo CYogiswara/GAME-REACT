@@ -319,6 +319,10 @@
     transition: opacity 1s ease;
     z-index: 1000;
 }
+.indo-root .black-screen.show {
+    opacity: 1;
+    pointer-events: auto;
+}
 
 /* Info quest & icon */
 .indo-root .info-quest {

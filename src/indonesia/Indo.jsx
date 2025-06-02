@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Controller from '../components/Controller';
 import DisplayDate from "../components/DisplayDate";
@@ -14,26 +14,43 @@ const directions = {
     right: "right",
 };
 
-
-
 function Indo() {
-    let Navigate = useNavigate()
+    let Navigate = useNavigate();
     const selectedCharacter = localStorage.getItem("selectedCharacter");
     const [showMapButton, setShowMapButton] = useState(false);
+    const [showMandiButton, setShowMandiButton] = useState(false);
+    const [showFotoButton, setShowFotoButton] = useState(false);
+    const [showGuildButton, setShowGuildButton] = useState(false);
+    const [showTendaButton, setShowTendaButton] = useState(false);
+    const [showSleepButton, setShowSleepButton] = useState(false);
+    const [showMakanButton, setShowMakanButton] = useState(false);
+
     const [position, setPosition] = useState({ x: 565, y: 125 });
     const [facing, setFacing] = useState("down");
     const [walking, setWalking] = useState(false);
     const [heldDirections, setHeldDirections] = useState([]);
     const speed = 1;
-    const [money, setMoney] = useState(100)
-    const [bath, setBath] = useState(() => Number(localStorage.getItem("bath")) || 50)
-    const [hunger, setHunger] = useState(() => Number(localStorage.getItem("hunger")) || 50)
-    const [sleep, setSleep] = useState(() => Number(localStorage.getItem("sleep")) || 50)
-    const [happiness, setHappiness] = useState(() => Number(localStorage.getItem("happiness")) || 50)
-    const [health, setHealth] = useState(() => Number(localStorage.getItem("health")) || 50)
-    const [currentQuest, setCurrentQuest] = useState([])
-    const [questStarted, setQuestStarted] = useState(false)
-    const [showFoods, setShowFoods] = useState(false)
+    const [money, setMoney] = useState(100);
+    const [bath, setBath] = useState(() => Number(localStorage.getItem("bath")) || 50);
+    const [hunger, setHunger] = useState(() => Number(localStorage.getItem("hunger")) || 50);
+    const [sleep, setSleep] = useState(() => Number(localStorage.getItem("sleep")) || 50);
+    const [happiness, setHappiness] = useState(() => Number(localStorage.getItem("happiness")) || 50);
+    const [health, setHealth] = useState(() => Number(localStorage.getItem("health")) || 50);
+    const [currentQuest, setCurrentQuest] = useState([]);
+    const [questStarted, setQuestStarted] = useState(false);
+    const [showFoods, setShowFoods] = useState(false);
+
+    // Black screen state
+    const [showBlackScreen, setShowBlackScreen] = useState(false);
+
+    // Helper untuk trigger black screen
+    function triggerBlackScreen(duration = 1000, callback) {
+        setShowBlackScreen(true);
+        setTimeout(() => {
+            setShowBlackScreen(false);
+            if (callback) callback();
+        }, duration);
+    }
 
     // Refs for animation
     const positionRef = useRef(position);
@@ -91,58 +108,109 @@ function Indo() {
     const characterStyle = {
         transform: `translate3d(${position.x * pixelSize}px, ${position.y * pixelSize}px, 0)`
     };
-    {/*==================================== SLEEP ====================================*/ }
-    function incrementSleep() {
-        setSleep(prevSleep => prevSleep + 100)
-        console.log(sleep)
+
+    // ============================================FOTO BUTTON===============================================
+    useEffect(() => {
+        const fotoX = 167;
+        const fotoY = 80;
+        const range = 30;
+        if (Math.abs(position.x - fotoX) < range && Math.abs(position.y - fotoY) < range) {
+            setShowFotoButton(true);
+        } else {
+            setShowFotoButton(false);
+        }
+    }, [position]);
+    useEffect(() => {
+        function handleKeyDown(event) {
+            if (event.key === "Enter" && showFotoButton) {
+                handleFotoClick();
+            }
+        }
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [showFotoButton]);
+    function handleFotoClick() {
+        triggerBlackScreen(1500, () => {
+            alert("Kamu sedang foto foto di Monas");
+            // checkQuestCompletion("fotoIndo"); // Panggil fungsi quest
+        });
     }
-    function decrementSleep() {
-        setSleep(prevSleep => prevSleep -= 1)
-    }
-    {/*==================================== FOTO =====================================*/ }
-    function handleFoto() {
-        alert("Kamu sedang foto")
-        setMoney(prevMoney => prevMoney += 25)
-    }
-    {/* ====================================MANDI==================================== */ }
+
+    //======================================MANDI BUTTON========================================\
     function incrementShower() {
-        let shower = 100
-        setBath(bath + shower)
+        triggerBlackScreen(1000, () => {
+            let shower = 100;
+            setBath(bath + shower);
+        });
     }
     function decrementShower() {
-        setBath(prevBath => prevBath -= 1)
-        console.log(bath)
+        setBath(prevBath => prevBath -= 1);
     }
-    {/*=================================== MAKAN================================== */ }
+    function handleMandiClick() {
+        triggerBlackScreen(1000, () => {
+            incrementShower();
+            alert("Kamu sedang mandi");
+        });
+    }
+    useEffect(() => {
+        const mandiX = 246;
+        const mandiY = 100;
+        const range = 25;
+        if (Math.abs(position.x - mandiX) < range && Math.abs(position.y - mandiY) < range) {
+            setShowMandiButton(true);
+        } else {
+            setShowMandiButton(false);
+        }
+    }, [position]);
+    useEffect(() => {
+        function handleKeyDown(event) {
+            if (event.key === "Enter" && showMandiButton) {
+                handleMandiClick();
+            }
+        }
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [showMandiButton]);
+    // ====================================MAKAN BUTTON=========================================
     const foods = [
         { name: "Popmie", cost: "$2", harga: 2, addBar: 20 },
         { name: "Nasi Padang", cost: "$4", harga: 4, addBar: 40 },
         { name: "Eskrim", cost: "$1", harga: 1, addBar: 10 }
-    ]
+    ];
     function MakanClicked() {
-        setShowFoods(true)
+        setShowFoods(true);
     }
-
     function handleMakan(food) {
-        const blackScreen = document.getElementById("blackScreen");
-        blackScreen.style.opacity = "1";
-        blackScreen.style.pointerEvents = "auto";
-        
+        triggerBlackScreen(1500, () => {
             alert(`Kamu sedang makan ${food.name}`);
-            // function cek quest
-
-            // Update bar hunger
             setHunger(prev => Math.min(prev + food.addBar, 100));
-
-            // Kurangi uang
             setMoney(prevMoney => prevMoney - food.harga);
-
-            // Layar hitam menghilang
-            blackScreen.style.opacity = "0";
-            blackScreen.style.pointerEvents = "none";
-            setShowFoods(false)
+            setShowFoods(false);
+            // checkQuestCompletion("makanIndo");    
+        });
     }
+    useEffect(() => {
+        const makanX = 327;
+        const makanY = 100;
+        const range = 10;
+        if (Math.abs(position.x - makanX) < range && Math.abs(position.y - makanY) < range) {
+            setShowMakanButton(true);
+        } else {
+            setShowMakanButton(false);
+        }
+    }, [position]);
+    useEffect(() => {
+        function handleKeyDown(event) {
+            if (event.key === "Enter" && showMakanButton) {
+                MakanClicked();
+            }
+        }
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [showMakanButton]);
 
+
+    //======================================MAP BUTTON======================================
     useEffect(() => {
         const mapX = 565;
         const mapY = 100;
@@ -153,24 +221,111 @@ function Indo() {
             setShowMapButton(false);
         }
     }, [position]);
+    useEffect(() => {
+        function handleKeyDown(event) {
+            if (event.key === "Enter" && showMapButton) {
+                handleMapClick();
+            }
+        }
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [showMapButton]);
+    function handleMapClick() {
+        triggerBlackScreen(1000, () => {
+            Navigate('/map');
+        });
+    }
+    // ========================================SLEEP BUTTON================================================
+    function handleSleepClick() {
+        triggerBlackScreen(1000, () => {
+            setSleep(prevSleep => prevSleep + 100);
+            alert("Kamu sedang tidur");
+        });
+    }
+    useEffect(() => {
+        const sleepX = 290;
+        const sleepY = 100;
+        const range = 15;
+        if (Math.abs(position.x - sleepX) < range && Math.abs(position.y - sleepY) < range) {
+            setShowSleepButton(true);
+        } else {
+            setShowSleepButton(false);
+        }
+    }, [position]);
+    useEffect(() => {
+        function handleKeyDown(event) {
+            if (event.key === "Enter" && showSleepButton) {
+                handleSleepClick();
+            }
+        }
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [showSleepButton]);
+
+    //======================================GUILD BUTTON======================================
+    useEffect(() => {
+        const guildX = 65;
+        const guildY = 100;
+        const range = 15;
+        if (Math.abs(position.x - guildX) < range && Math.abs(position.y - guildY) < range) {
+            setShowGuildButton(true);
+        } else {
+            setShowGuildButton(false);
+        }
+    }, [position]);
+    useEffect(() => {
+        function handleKeyDown(event) {
+            if (event.key === "Enter" && showGuildButton) {
+                handleGuildClick();
+            }
+        }
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [showGuildButton]);
+    function handleGuildClick() {
+        triggerBlackScreen(1000, () => {
+            alert("Misi Baru telah muncul!!!!");
+
+        });
+    }
+    //======================================TENDA BUTTON======================================
+    useEffect(() => {
+        const tendaX = 413;
+        const tendaY = 100;
+        const range = 15;
+        if (Math.abs(position.x - tendaX) < range && Math.abs(position.y - tendaY) < range) {
+            setShowTendaButton(true);
+        } else {
+            setShowTendaButton(false);
+            setShowFoods(false);
+        }
+    }, [position]);
+    useEffect(() => {
+        function handleKeyDown(event) {
+            if (event.key === "Enter" && showTendaButton) {
+                handleTendaClick();
+            }
+        }
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [showTendaButton]);
+    function handleTendaClick() {
+        triggerBlackScreen(1000, () => {
+            alert("Kamu sedang pergi ke tenda paman");
+        });
+    }
+
     return (
         <>
             <div className="indo-root">
-                <div className="black-screen" id="blackScreen"></div>
+                <div className={`black-screen${showBlackScreen ? " show" : ""}`} id="blackScreen"></div>
                 <div className="frame">
                     <div className="camera">
                         <div className="indo-map pixel-art" style={mapStyle}>
                             <div>
-                                <div
-                                    className="character"
-                                    facing={facing}
-                                    walking={walking ? "true" : "false"}
-                                    style={characterStyle}
-                                >
+                                <div className="character" facing={facing} walking={walking ? "true" : "false"} style={characterStyle}>
                                     <div className="shadow pixel-art"></div>
-                                    <div
-                                        className="character_spritesheet pixel-art"
-                                        style={{ backgroundImage: `url('${selectedCharacter}')` }}
+                                    <div className="character_spritesheet pixel-art" style={{ backgroundImage: `url('${selectedCharacter}')` }}
                                     ></div>
                                 </div>
                                 <div id="quest-display">
@@ -179,21 +334,23 @@ function Indo() {
                                 </div>
                                 <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health} />
                                 <DisplayDate />
-                                <div class="button-map"><Buttons value="Map" className="map-button" onClick={() => Navigate('/map')} /></div>
-                                <div class="button-sleep"><Buttons value="Sleep" className={"sleep-button"} onClick={incrementSleep} /></div>
-                                <div class="button-foto"><Buttons value="Foto" className={"foto-button"} onClick={handleFoto} /></div>
-                                <div class="button-mandi"><Buttons value="Mandi" className={"mandi-button"} onClick={incrementShower}></Buttons></div>
-                                <div class="button-tenda"><Buttons value="Tenda" className={"tenda-button"} onClick={onclick}></Buttons></div>
-                                <div class="button-makan"><Buttons value="Makan" className={"makan-button"} onClick={MakanClicked}></Buttons></div>
+                                <div className="button-map">{showMapButton && (<Buttons value="Map" className="map-button" onClick={handleMapClick} />)}</div>
+                                <div className="button-sleep">{showSleepButton && (<Buttons value="Sleep" className={"sleep-button"} onClick={handleSleepClick} />)}</div>
+                                <div className="button-foto">{showFotoButton && (<Buttons value="Foto" className="foto-button" onClick={handleFotoClick} />)}</div>
+                                <div className="button-mandi">{showMandiButton && (<Buttons value="Mandi" className={"mandi-button"} onClick={handleMandiClick} />)}</div>
+                                <div className="button-tenda">{showTendaButton && (<Buttons value="Tenda" className={"tenda-button"} onClick={handleTendaClick} />)}</div>
+                                <div className="button-guild">{showGuildButton && (<Buttons value="Guild" className={"guild-button"} onClick={handleGuildClick}></Buttons>)}</div>
+                                <div className="button-makan">{showMakanButton && (<Buttons value="Makan" className={"makan-button"} onClick={MakanClicked} />)}</div>
                                 {showFoods && (
-                                <div id="makanOptions">
-                                    <h4>Pilih Makanan</h4>
-                                    {foods.map((food, index)=>(
-                                        <FoodButton key={index} food={food} onClick={handleMakan}/>
-                                    ))}
-                                </div>
-                            )}
-                                <div class="button-guild"><Buttons value="Guild" className={"guild-button"} onClick={onclick}></Buttons></div>
+                                    <div id="makanOptions" className="indo-makan-options">
+                                        {foods.map((food, index) => (
+                                            <button key={index} onClick={() => handleMakan(food)} style={{ marginBottom: 8, position: "relative" }} >
+                                                {food.name}
+                                                <span className="info-icon" data-cost={`Harga: ${food.cost}`} style={{ marginLeft: 8, cursor: "pointer" }} title={`Harga: ${food.cost}`}>(i)</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
