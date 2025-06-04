@@ -175,7 +175,7 @@ function Map() {
         }
 
         .map-root{
-            height: 900px;
+            height: 1100px;
         }
 
         .flag:hover {

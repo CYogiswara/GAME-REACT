@@ -42,8 +42,6 @@ function Indo() {
 
     // Black screen state
     const [showBlackScreen, setShowBlackScreen] = useState(false);
-
-    // Helper untuk trigger black screen
     function triggerBlackScreen(duration = 1000, callback) {
         setShowBlackScreen(true);
         setTimeout(() => {
@@ -110,6 +108,11 @@ function Indo() {
     };
 
     // ============================================FOTO BUTTON===============================================
+    function handleFotoClick() {
+        triggerBlackScreen(1500, () => {
+            alert("Kamu sedang foto foto di Monas");
+        });
+    }
     useEffect(() => {
         const fotoX = 167;
         const fotoY = 80;
@@ -129,26 +132,12 @@ function Indo() {
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [showFotoButton]);
-    function handleFotoClick() {
-        triggerBlackScreen(1500, () => {
-            alert("Kamu sedang foto foto di Monas");
-            // checkQuestCompletion("fotoIndo"); // Panggil fungsi quest
-        });
-    }
 
     //======================================MANDI BUTTON========================================\
-    function incrementShower() {
+    function handleMandiClick() {
         triggerBlackScreen(1000, () => {
             let shower = 100;
             setBath(bath + shower);
-        });
-    }
-    function decrementShower() {
-        setBath(prevBath => prevBath -= 1);
-    }
-    function handleMandiClick() {
-        triggerBlackScreen(1000, () => {
-            incrementShower();
             alert("Kamu sedang mandi");
         });
     }
