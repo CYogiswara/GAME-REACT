@@ -117,6 +117,8 @@ function Mesir() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 25);
+                localStorage.setItem("money", money + 25);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert("Kamu sedang foto di Piramida");
                 alert("Quest foto di Piramida berhasil diselesaikan!!!");
@@ -156,6 +158,8 @@ function Mesir() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 30);
+                localStorage.setItem("money", money + 30);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert("Kamu sedang mandi di Sungai Nil");
                 alert("Quest mandi di Sungai Nil berhasil diselesaikan!!!");
@@ -206,6 +210,8 @@ function Mesir() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 15);
+                localStorage.setItem("money", money + 15);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert(`Kamu sedang makan ${food.name}`);
                 alert("Quest Makan di Rumah berhasil diselesaikan!!!");

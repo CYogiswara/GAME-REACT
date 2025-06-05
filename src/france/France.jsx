@@ -117,6 +117,8 @@ function France() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 45);
+                localStorage.setItem("money", money + 45);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert("Kamu sedang masuk kedalam Université de Strasbourg dan foto fasilitas yang ada didalamnya");
                 alert("Quest foto fasilitas Université de Strasbourg berhasil diselesaikan!!!");
@@ -204,6 +206,8 @@ function France() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 35);
+                localStorage.setItem("money", money + 35);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert(`Kamu sedang makan ${food.name}`);
                 alert("Quest Makan mewah di France berhasil diselesaikan!!!");

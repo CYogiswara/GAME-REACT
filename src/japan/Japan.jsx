@@ -118,6 +118,8 @@ function Japan() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 20);
+                localStorage.setItem("money", money + 20);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert("Kamu sedang foto rumah tua milik kakek");
                 alert("Quest foto rumah tua milik kakek berhasil diselesaikan!!!");
@@ -157,6 +159,8 @@ function Japan() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 25);
+                localStorage.setItem("money", money + 25);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert("Kamu sedang berendam di pemandian air panas");
                 alert("Quest berendam di pemandian air panas berhasil diselesaikan!!!");
@@ -205,6 +209,8 @@ function Japan() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 10);
+                localStorage.setItem("money", money + 10);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert(`Kamu sedang makan ${food.name}`);
                 alert("Quest Makan enak di Jepang berhasil diselesaikan!!!");
@@ -268,6 +274,8 @@ function Japan() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 35);
+                localStorage.setItem("money", money + 35);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert("Kamu sedang berkebun bersama kakek");
                 alert("Quest berkebun bersama kakek berhasil diselesaikan!!!");

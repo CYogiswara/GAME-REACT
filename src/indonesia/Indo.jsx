@@ -123,6 +123,8 @@ function Indo() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 25);
+                localStorage.setItem("money", money + 25);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert("Kamu sedang foto foto di Monas");
                 alert("Quest Foto di Monas berhasil diselesaikan!!!");
@@ -200,6 +202,8 @@ function Indo() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 15);
+                localStorage.setItem("money", money + 15);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert(`Kamu sedang makan ${food.name}`);
                 alert("Quest Makan di Rumah berhasil diselesaikan!!!");
@@ -354,6 +358,8 @@ function Indo() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 20);
+                localStorage.setItem("money", money + 20);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert("Kamu sedang pergi ke tenda paman");
                 alert("Quest pergi ke tenda paman berhasil diselesaikan!!!");

@@ -118,6 +118,8 @@ function USA() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 30);
+                localStorage.setItem("money", money + 30);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert("Kamu sedang foto foto didepan Patung Liberty");
                 alert("Quest foto di Patung Liberty berhasil diselesaikan!!!");
@@ -157,6 +159,8 @@ function USA() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 25);
+                localStorage.setItem("money", money + 25);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert("Kamu sedang mandi di hotel yang berhantu");
                 alert("Quest mandi di hotel berpenghuni lt.4 berhasil diselesaikan!!!");
@@ -207,9 +211,12 @@ function USA() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 10);
+                localStorage.setItem("money", money + 10);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert(`Kamu sedang makan ${food.name}`);
                 alert("Quest Makan MAHALL di USA berhasil diselesaikan!!!");
+
             } else {
                 alert(`Kamu sedang makan ${food.name}`);
             }
@@ -270,6 +277,8 @@ function USA() {
                 const newQuests = [...displayedQuests];
                 newQuests.splice(questIdx, 1);
                 setDisplayedQuests(newQuests);
+                setMoney(prevMoney => prevMoney + 20);
+                localStorage.setItem("money", money + 20);
                 localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
                 alert("Kamu sedang mengemudi di U.S. Route 66");
                 alert("Quest mengemudi di U.S. Route 66 berhasil diselesaikan!!!");
