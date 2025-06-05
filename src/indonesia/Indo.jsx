@@ -1,5 +1,6 @@
 import React, { use, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LocationQuests from "../data/LocationQuest";
 import Controller from '../components/Controller';
 import DisplayDate from "../components/DisplayDate";
 import Buttons from "../components/buttons";
@@ -37,8 +38,7 @@ function Indo() {
     const [sleep, setSleep] = useState(() => Number(localStorage.getItem("sleeps")) || 50);
     const [happiness, setHappiness] = useState(() => Number(localStorage.getItem("happiness")) || 50);
     const [health, setHealth] = useState(() => Number(localStorage.getItem("health")) || 50);
-    const [currentQuest, setCurrentQuest] = useState([]);
-    const [questStarted, setQuestStarted] = useState(false);
+    const [displayedQuests, setDisplayedQuests] = useState([]);
     const [showFoods, setShowFoods] = useState(false);
 
     // Black screen state
@@ -107,6 +107,13 @@ function Indo() {
     const characterStyle = {
         transform: `translate3d(${position.x * pixelSize}px, ${position.y * pixelSize}px, 0)`
     };
+    //QUESTS
+    useEffect(() => {
+        const savedQuests = localStorage.getItem("displayedQuests");
+        if (savedQuests) {
+            setDisplayedQuests(JSON.parse(savedQuests));
+        }
+    }, []);
 
     // ============================================FOTO BUTTON===============================================
     function handleFotoClick() {
@@ -282,9 +289,21 @@ function Indo() {
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [showGuildButton]);
     function handleGuildClick() {
+        if (displayedQuests.length > 0) {
+            alert("Selesaikan semua misi terlebih dahulu!!!");
+            return;
+        }
         triggerBlackScreen(1000, () => {
+            const quests = [];
+            Object.values(LocationQuests).forEach(questArr => {
+                if (questArr.length > 0) {
+                    const randomIdx = Math.floor(Math.random() * questArr.length);
+                    quests.push(questArr[randomIdx]);
+                }
+            });
+            setDisplayedQuests(quests);
+            localStorage.setItem("displayedQuests", JSON.stringify(quests));
             alert("Misi Baru telah muncul!!!!");
-
         });
     }
     //======================================TENDA BUTTON======================================
@@ -329,7 +348,25 @@ function Indo() {
                                 </div>
                                 <div id="quest-display">
                                     <h3>Quests List</h3>
-                                    <ul id="quest-list"></ul>
+                                    <ul id="quest-list">
+                                        {displayedQuests.length === 0 ? (
+                                            <li>Tidak ada quest aktif.</li>
+                                        ) : (
+                                            displayedQuests.map((quest, idx) => (
+                                                <li key={idx}>
+                                                    {quest.name}
+                                                    <span
+                                                        className="info-quest"
+                                                        data-info={`Kamu akan mendapatkan $${quest.gaji}`}
+                                                        style={{ marginLeft: 8, cursor: "pointer" }}
+                                                        title={`Kamu akan mendapatkan $${quest.gaji}`}
+                                                    >
+                                                        (i)
+                                                    </span>
+                                                </li>
+                                            ))
+                                        )}
+                                    </ul>
                                 </div>
                                 <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health} money={money} />
                                 <DisplayDate />
