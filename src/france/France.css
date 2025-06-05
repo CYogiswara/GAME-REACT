@@ -446,7 +446,3 @@
     right: calc(var(--pixel-size) * 2);
     width: calc(var(--pixel-size) * 75);
 }
-
-.france-root .button-map{
-    background-color: tomato;
-}

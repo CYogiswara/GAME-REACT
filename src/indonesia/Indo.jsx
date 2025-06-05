@@ -24,6 +24,8 @@ function Indo() {
     const [showSleepButton, setShowSleepButton] = useState(false);
     const [showMakanButton, setShowMakanButton] = useState(false);
 
+
+
     const [position, setPosition] = useState({ x: 565, y: 125 });
     const [facing, setFacing] = useState("down");
     const [walking, setWalking] = useState(false);
@@ -32,7 +34,7 @@ function Indo() {
     const [money, setMoney] = useState(() => Number(localStorage.getItem("money")) || 100);
     const [bath, setBath] = useState(() => Number(localStorage.getItem("bath")) || 50);
     const [hunger, setHunger] = useState(() => Number(localStorage.getItem("hunger")) || 50);
-    const [sleep, setSleep] = useState(() => Number(localStorage.getItem("sleep")) || 50);
+    const [sleep, setSleep] = useState(() => Number(localStorage.getItem("sleeps")) || 50);
     const [happiness, setHappiness] = useState(() => Number(localStorage.getItem("happiness")) || 50);
     const [health, setHealth] = useState(() => Number(localStorage.getItem("health")) || 50);
     const [currentQuest, setCurrentQuest] = useState([]);
@@ -174,7 +176,7 @@ function Indo() {
             alert(`Kamu sedang makan ${food.name}`);
             setHunger(prev => Math.min(prev + food.addBar, 100));
             setMoney(prevMoney => prevMoney - food.harga);
-            setShowFoods(false);  
+            setShowFoods(false);
             localStorage.setItem("hunger", hunger + food.addBar);
             localStorage.setItem("money", money - food.harga);
         });
@@ -227,10 +229,16 @@ function Indo() {
     }
     // ========================================SLEEP BUTTON================================================
     function handleSleepClick() {
+        let hours = Number(localStorage.getItem("hours")) || 0;
+        const canSleep = (hours >= 19 && hours <= 23) || (hours >= 0 && hours <= 3);
+        if (!canSleep) {
+            alert("Kamu hanya bisa tidur antara pukul 19:00 sampai 03:00!");
+            return;
+        }
+
         triggerBlackScreen(1000, () => {
             setSleep(prevSleep => prevSleep + 100);
             alert("Kamu sedang tidur");
-            localStorage.setItem("sleep", sleep + 100);
         });
     }
     useEffect(() => {
@@ -323,7 +331,7 @@ function Indo() {
                                     <h3>Quests List</h3>
                                     <ul id="quest-list"></ul>
                                 </div>
-                                <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health} money={money}/>
+                                <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health} money={money} />
                                 <DisplayDate />
                                 <div className="button-map">{showMapButton && (<Buttons value="Map" className="map-button" onClick={handleMapClick} />)}</div>
                                 <div className="button-sleep">{showSleepButton && (<Buttons value="Sleep" className={"sleep-button"} onClick={handleSleepClick} />)}</div>

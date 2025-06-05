@@ -30,7 +30,7 @@ function Japan() {
     const [money, setMoney] = useState(() => Number(localStorage.getItem("money")) || 100);
     const [bath, setBath] = useState(() => Number(localStorage.getItem("bath")) || 50);
     const [hunger, setHunger] = useState(() => Number(localStorage.getItem("hunger")) || 50);
-    const [sleep, setSleep] = useState(() => Number(localStorage.getItem("sleep")) || 50);
+    const [sleep, setSleep] = useState(() => Number(localStorage.getItem("sleeps")) || 50);
     const [happiness, setHappiness] = useState(() => Number(localStorage.getItem("happiness")) || 50);
     const [health, setHealth] = useState(() => Number(localStorage.getItem("health")) || 50);
     const [currentQuest, setCurrentQuest] = useState([]);

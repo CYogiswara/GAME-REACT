@@ -460,7 +460,3 @@
     right: calc(var(--pixel-size) * 2);
     width: calc(var(--pixel-size) * 75);
 }
-
-.japan-root .button-map{
-    background-color: tomato;
-}

@@ -210,13 +210,13 @@ function Map() {
                             <h1>Trip ke Jepang akan mengeluarkan biaya sebesar $30</h1>
                         </div>
                     </Link>
-                    <Link to="../../mesir.html" id="mesirMap" className="flag">
+                    <Link to="/Mesir" id="mesirMap" className="flag">
                         <img src="/asset/map/mesirFlag.png" />
                         <div className="description">
                             <h1>Trip ke Mesir akan mengeluarkan biaya sebesar $20</h1>
                         </div>
                     </Link>
-                    <Link to="../../usa.html" id="usaMap" className="flag">
+                    <Link to="/USA" id="usaMap" className="flag">
                         <img src=".//asset/map/usaFlag.png" />
                         <div className="description">
                             <h1>Trip ke USA akan mengeluarkan biaya sebesar $15</h1>
