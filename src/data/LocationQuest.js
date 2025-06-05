@@ -21,8 +21,9 @@ const LocationQuests = {
     ],
     usa: [
         { name: "*Foto di Patung Liberty - USA", action: "fotoUSA", gaji: 30 },
-        { name: "*Makan Mahal di USA - USA", action: "makanUSA", gaji: 10 },
-        { name: "*Mengemudi di U.S. Route 66 - USA", action: "driverUSA", gaji: 20 }
+        { name: "*Makan MAHALL di USA - USA", action: "makanUSA", gaji: 10 },
+        { name: "*Mengemudi di U.S. Route 66 - USA", action: "driverUSA", gaji: 20 },
+        { name: "*Mandi di Hotel Berpenghuni lt.4 - USA", action: "mandiUSA", gaji: 25 }
     ]
 }
 

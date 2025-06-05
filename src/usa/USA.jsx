@@ -112,8 +112,18 @@ function USA() {
 
     // ============================================FOTO BUTTON===============================================
     function handleFotoClick() {
+        const questIdx = displayedQuests.findIndex(q => q.action === "fotoUSA");
         triggerBlackScreen(1500, () => {
-            alert("Kamu sedang foto foto didepan Patung Liberty");
+            if (questIdx !== -1) {
+                const newQuests = [...displayedQuests];
+                newQuests.splice(questIdx, 1);
+                setDisplayedQuests(newQuests);
+                localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
+                alert("Kamu sedang foto foto didepan Patung Liberty");
+                alert("Quest foto di Patung Liberty berhasil diselesaikan!!!");
+            } else {
+                alert("Kamu sedang foto foto didepan Patung Liberty");
+            }
         });
     }
     useEffect(() => {
@@ -138,11 +148,21 @@ function USA() {
 
     //======================================MANDI BUTTON========================================\
     function handleMandiClick() {
-        triggerBlackScreen(1000, () => {
-            let shower = 100;
-            setBath(bath + shower);
-            alert("Kamu sedang mandi di hotel berhantu");
-            localStorage.setItem("bath", bath + shower);
+        const questIdx = displayedQuests.findIndex(q => q.action === "mandiUSA");
+        let shower = 100;
+        setBath(bath + shower);
+        localStorage.setItem("bath", bath + shower);
+        triggerBlackScreen(1500, () => {
+            if (questIdx !== -1) {
+                const newQuests = [...displayedQuests];
+                newQuests.splice(questIdx, 1);
+                setDisplayedQuests(newQuests);
+                localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
+                alert("Kamu sedang mandi di hotel yang berhantu");
+                alert("Quest mandi di hotel berpenghuni lt.4 berhasil diselesaikan!!!");
+            } else {
+                alert("Kamu sedang mandi di hotel yang berhantu");
+            }
         });
     }
     useEffect(() => {
@@ -168,21 +188,31 @@ function USA() {
 
     // ====================================MAKAN BUTTON=========================================
     const foods = [
-        { name: "Mac & Cheese", cost: "$2", harga: 2, addBar: 20 },
-        { name: "Fish & Chip", cost: "$4", harga: 4, addBar: 40 },
-        { name: "Steak", cost: "$5", harga: 1, addBar: 50 }
+        { name: "Mac & Cheese", cost: "$15", harga: 15, addBar: 50 },
+        { name: "Fish & Chip", cost: "$17", harga: 17, addBar: 50 },
+        { name: "Steak", cost: "$19", harga: 19, addBar: 50 }
     ];
     function MakanClicked() {
         setShowFoods(true);
     }
     function handleMakan(food) {
+        const questIdx = displayedQuests.findIndex(q => q.action === "makanUSA");
         triggerBlackScreen(1500, () => {
-            alert(`Kamu sedang makan ${food.name}`);
+            setShowFoods(false);
             setHunger(prev => Math.min(prev + food.addBar, 100));
             setMoney(prevMoney => prevMoney - food.harga);
-            setShowFoods(false);
             localStorage.setItem("hunger", hunger + food.addBar);
             localStorage.setItem("money", money - food.harga);
+            if (questIdx !== -1) {
+                const newQuests = [...displayedQuests];
+                newQuests.splice(questIdx, 1);
+                setDisplayedQuests(newQuests);
+                localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
+                alert(`Kamu sedang makan ${food.name}`);
+                alert("Quest Makan MAHALL di USA berhasil diselesaikan!!!");
+            } else {
+                alert(`Kamu sedang makan ${food.name}`);
+            }
         });
     }
     useEffect(() => {
@@ -234,8 +264,18 @@ function USA() {
     }
     // ============================================DRIVER BUTTON===============================================
     function handleDriverClick() {
+        const questIdx = displayedQuests.findIndex(q => q.action === "driverUSA");
         triggerBlackScreen(1500, () => {
-            alert("Kamu sedang mengemudi di U.S. Route 66");
+            if (questIdx !== -1) {
+                const newQuests = [...displayedQuests];
+                newQuests.splice(questIdx, 1);
+                setDisplayedQuests(newQuests);
+                localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
+                alert("Kamu sedang mengemudi di U.S. Route 66");
+                alert("Quest mengemudi di U.S. Route 66 berhasil diselesaikan!!!");
+            } else {
+                alert("Kamu sedang mengemudi di U.S. Route 66");
+            }
         });
     }
     useEffect(() => {
@@ -286,7 +326,6 @@ function USA() {
                                                         className="info-quest"
                                                         data-info={`Kamu akan mendapatkan $${quest.gaji}`}
                                                         style={{ marginLeft: 8, cursor: "pointer" }}
-                                                        title={`Kamu akan mendapatkan $${quest.gaji}`}
                                                     >
                                                         (i)
                                                     </span>
@@ -307,7 +346,7 @@ function USA() {
                                         {foods.map((food, index) => (
                                             <button key={index} onClick={() => handleMakan(food)} style={{ marginBottom: 8, position: "relative" }} >
                                                 {food.name}
-                                                <span className="info-icon" data-cost={`Harga: ${food.cost}`} style={{ marginLeft: 8, cursor: "pointer" }} title={`Harga: ${food.cost}`}>(i)</span>
+                                                <span className="info-icon" data-cost={`Harga: ${food.cost}`} style={{ marginLeft: 8, cursor: "pointer" }}>(i)</span>
                                             </button>
                                         ))}
                                     </div>

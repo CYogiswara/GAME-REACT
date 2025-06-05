@@ -111,8 +111,18 @@ function Mesir() {
 
     // ============================================FOTO BUTTON===============================================
     function handleFotoClick() {
+        const questIdx = displayedQuests.findIndex(q => q.action === "fotoMesir");
         triggerBlackScreen(1500, () => {
-            alert("Kamu sedang foto di Piramida");
+            if (questIdx !== -1) {
+                const newQuests = [...displayedQuests];
+                newQuests.splice(questIdx, 1);
+                setDisplayedQuests(newQuests);
+                localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
+                alert("Kamu sedang foto di Piramida");
+                alert("Quest foto di Piramida berhasil diselesaikan!!!");
+            } else {
+                alert("Kamu sedang foto di Piramida");
+            }
         });
     }
     useEffect(() => {
@@ -137,11 +147,21 @@ function Mesir() {
 
     //======================================MANDI BUTTON========================================\
     function handleMandiClick() {
-        triggerBlackScreen(1000, () => {
-            let shower = 100;
-            setBath(bath + shower);
-            alert("Kamu sedang mandi di Sungai Nil");
-            localStorage.setItem("bath", bath + shower);
+        const questIdx = displayedQuests.findIndex(q => q.action === "mandiMesir");
+        let shower = 100;
+        setBath(bath + shower);
+        localStorage.setItem("bath", bath + shower);
+        triggerBlackScreen(1500, () => {
+            if (questIdx !== -1) {
+                const newQuests = [...displayedQuests];
+                newQuests.splice(questIdx, 1);
+                setDisplayedQuests(newQuests);
+                localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
+                alert("Kamu sedang mandi di Sungai Nil");
+                alert("Quest mandi di Sungai Nil berhasil diselesaikan!!!");
+            } else {
+                alert("Kamu sedang mandi di Sungai Nil");
+            }
         });
     }
     useEffect(() => {
@@ -175,13 +195,23 @@ function Mesir() {
         setShowFoods(true);
     }
     function handleMakan(food) {
+        const questIdx = displayedQuests.findIndex(q => q.action === "makanMesir");
         triggerBlackScreen(1500, () => {
-            alert(`Kamu sedang makan ${food.name}`);
+            setShowFoods(false);
             setHunger(prev => Math.min(prev + food.addBar, 100));
             setMoney(prevMoney => prevMoney - food.harga);
-            setShowFoods(false);
             localStorage.setItem("hunger", hunger + food.addBar);
             localStorage.setItem("money", money - food.harga);
+            if (questIdx !== -1) {
+                const newQuests = [...displayedQuests];
+                newQuests.splice(questIdx, 1);
+                setDisplayedQuests(newQuests);
+                localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
+                alert(`Kamu sedang makan ${food.name}`);
+                alert("Quest Makan di Rumah berhasil diselesaikan!!!");
+            } else {
+                alert(`Kamu sedang makan ${food.name}`);
+            }
         });
     }
     useEffect(() => {
@@ -260,7 +290,6 @@ function Mesir() {
                                                         className="info-quest"
                                                         data-info={`Kamu akan mendapatkan $${quest.gaji}`}
                                                         style={{ marginLeft: 8, cursor: "pointer" }}
-                                                        title={`Kamu akan mendapatkan $${quest.gaji}`}
                                                     >
                                                         (i)
                                                     </span>
@@ -280,7 +309,7 @@ function Mesir() {
                                         {foods.map((food, index) => (
                                             <button key={index} onClick={() => handleMakan(food)} style={{ marginBottom: 8, position: "relative" }} >
                                                 {food.name}
-                                                <span className="info-icon" data-cost={`Harga: ${food.cost}`} style={{ marginLeft: 8, cursor: "pointer" }} title={`Harga: ${food.cost}`}>(i)</span>
+                                                <span className="info-icon" data-cost={`Harga: ${food.cost}`} style={{ marginLeft: 8, cursor: "pointer" }}>(i)</span>
                                             </button>
                                         ))}
                                     </div>

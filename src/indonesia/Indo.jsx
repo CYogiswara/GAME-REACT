@@ -115,10 +115,20 @@ function Indo() {
         }
     }, []);
 
-    // ============================================FOTO BUTTON===============================================
+    // ============================================FOTO BUTTON==============================================
     function handleFotoClick() {
+        const questIdx = displayedQuests.findIndex(q => q.action === "fotoIndo");
         triggerBlackScreen(1500, () => {
-            alert("Kamu sedang foto foto di Monas");
+            if (questIdx !== -1) {
+                const newQuests = [...displayedQuests];
+                newQuests.splice(questIdx, 1);
+                setDisplayedQuests(newQuests);
+                localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
+                alert("Kamu sedang foto foto di Monas");
+                alert("Quest Foto di Monas berhasil diselesaikan!!!");
+            } else {
+                alert("Kamu sedang foto foto di Monas");
+            }
         });
     }
     useEffect(() => {
@@ -179,13 +189,23 @@ function Indo() {
         setShowFoods(true);
     }
     function handleMakan(food) {
+        const questIdx = displayedQuests.findIndex(q => q.action === "makanIndo");
         triggerBlackScreen(1500, () => {
-            alert(`Kamu sedang makan ${food.name}`);
+            setShowFoods(false);
             setHunger(prev => Math.min(prev + food.addBar, 100));
             setMoney(prevMoney => prevMoney - food.harga);
-            setShowFoods(false);
             localStorage.setItem("hunger", hunger + food.addBar);
             localStorage.setItem("money", money - food.harga);
+            if (questIdx !== -1) {
+                const newQuests = [...displayedQuests];
+                newQuests.splice(questIdx, 1);
+                setDisplayedQuests(newQuests);
+                localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
+                alert(`Kamu sedang makan ${food.name}`);
+                alert("Quest Makan di Rumah berhasil diselesaikan!!!");
+            } else {
+                alert(`Kamu sedang makan ${food.name}`);
+            }
         });
     }
     useEffect(() => {
@@ -328,8 +348,18 @@ function Indo() {
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [showTendaButton]);
     function handleTendaClick() {
-        triggerBlackScreen(1000, () => {
-            alert("Kamu sedang pergi ke tenda paman");
+        const questIdx = displayedQuests.findIndex(q => q.action === "tendaIndo");
+        triggerBlackScreen(1500, () => {
+            if (questIdx !== -1) {
+                const newQuests = [...displayedQuests];
+                newQuests.splice(questIdx, 1);
+                setDisplayedQuests(newQuests);
+                localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
+                alert("Kamu sedang pergi ke tenda paman");
+                alert("Quest pergi ke tenda paman berhasil diselesaikan!!!");
+            } else {
+                alert("Kamu sedang pergi ke tenda paman");
+            }
         });
     }
 
@@ -359,7 +389,6 @@ function Indo() {
                                                         className="info-quest"
                                                         data-info={`Kamu akan mendapatkan $${quest.gaji}`}
                                                         style={{ marginLeft: 8, cursor: "pointer" }}
-                                                        title={`Kamu akan mendapatkan $${quest.gaji}`}
                                                     >
                                                         (i)
                                                     </span>
@@ -382,7 +411,7 @@ function Indo() {
                                         {foods.map((food, index) => (
                                             <button key={index} onClick={() => handleMakan(food)} style={{ marginBottom: 8, position: "relative" }} >
                                                 {food.name}
-                                                <span className="info-icon" data-cost={`Harga: ${food.cost}`} style={{ marginLeft: 8, cursor: "pointer" }} title={`Harga: ${food.cost}`}>(i)</span>
+                                                <span className="info-icon" data-cost={`Harga: ${food.cost}`} style={{ marginLeft: 8, cursor: "pointer" }} >(i)</span>
                                             </button>
                                         ))}
                                     </div>

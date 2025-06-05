@@ -111,8 +111,18 @@ function France() {
 
     // ============================================FOTO BUTTON===============================================
     function handleFotoClick() {
+        const questIdx = displayedQuests.findIndex(q => q.action === "fotoFrance");
         triggerBlackScreen(1500, () => {
-            alert("Kamu sedang masuk kedalam Université de Strasbourg dan foto fasilitas yang ada didalamnya");
+            if (questIdx !== -1) {
+                const newQuests = [...displayedQuests];
+                newQuests.splice(questIdx, 1);
+                setDisplayedQuests(newQuests);
+                localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
+                alert("Kamu sedang masuk kedalam Université de Strasbourg dan foto fasilitas yang ada didalamnya");
+                alert("Quest foto fasilitas Université de Strasbourg berhasil diselesaikan!!!");
+            } else {
+                alert("Kamu sedang masuk kedalam Université de Strasbourg dan foto fasilitas yang ada didalamnya");
+            }
         });
     }
     useEffect(() => {
@@ -137,11 +147,21 @@ function France() {
 
     //======================================MANDI BUTTON========================================\
     function handleMandiClick() {
-        triggerBlackScreen(1000, () => {
-            let shower = 100;
-            setBath(bath + shower);
-            alert("Kamu sedang berendam di pemandian air panas");
-            localStorage.setItem("bath", bath + shower);
+        const questIdx = displayedQuests.findIndex(q => q.action === "fotoJepang");
+        let shower = 100;
+        setBath(bath + shower);
+        localStorage.setItem("bath", bath + shower);
+        triggerBlackScreen(1500, () => {
+            if (questIdx !== -1) {
+                const newQuests = [...displayedQuests];
+                newQuests.splice(questIdx, 1);
+                setDisplayedQuests(newQuests);
+                localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
+                alert("Kamu sedang berendam di pemandian air panas");
+                alert("Quest berendam di pemandian air panas berhasil diselesaikan!!!");
+            } else {
+                alert("Kamu sedang berendam di pemandian air panas");
+            }
         });
     }
     useEffect(() => {
@@ -173,13 +193,23 @@ function France() {
         setShowFoods(true);
     }
     function handleMakan(food) {
+        const questIdx = displayedQuests.findIndex(q => q.action === "makanFrance");
         triggerBlackScreen(1500, () => {
-            alert(`Kamu sedang makan ${food.name}`);
+            setShowFoods(false);
             setHunger(prev => Math.min(prev + food.addBar, 100));
             setMoney(prevMoney => prevMoney - food.harga);
             localStorage.setItem("hunger", hunger + food.addBar);
             localStorage.setItem("money", money - food.harga);
-            setShowFoods(false);
+            if (questIdx !== -1) {
+                const newQuests = [...displayedQuests];
+                newQuests.splice(questIdx, 1);
+                setDisplayedQuests(newQuests);
+                localStorage.setItem("displayedQuests", JSON.stringify(newQuests));
+                alert(`Kamu sedang makan ${food.name}`);
+                alert("Quest Makan mewah di France berhasil diselesaikan!!!");
+            } else {
+                alert(`Kamu sedang makan ${food.name}`);
+            }
         });
     }
     useEffect(() => {
@@ -258,7 +288,6 @@ function France() {
                                                         className="info-quest"
                                                         data-info={`Kamu akan mendapatkan $${quest.gaji}`}
                                                         style={{ marginLeft: 8, cursor: "pointer" }}
-                                                        title={`Kamu akan mendapatkan $${quest.gaji}`}
                                                     >
                                                         (i)
                                                     </span>
@@ -278,7 +307,7 @@ function France() {
                                         {foods.map((food, index) => (
                                             <button key={index} onClick={() => handleMakan(food)} style={{ marginBottom: 8, position: "relative" }} >
                                                 {food.name}
-                                                <span className="info-icon" data-cost={`Harga: ${food.cost}`} style={{ marginLeft: 8, cursor: "pointer" }} title={`Harga: ${food.cost}`}>(i)</span>
+                                                <span className="info-icon" data-cost={`Harga: ${food.cost}`} style={{ marginLeft: 8, cursor: "pointer" }}>(i)</span>
                                             </button>
                                         ))}
                                     </div>
