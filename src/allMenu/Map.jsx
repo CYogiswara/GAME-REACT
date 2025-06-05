@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Map() {
     
-    // Inline CSS khusus Page
+    // Inline CSS khusus Map
     const mapStyle = `
         @layer utilities {
             @media(min-width: 300px) {
@@ -204,7 +204,7 @@ function Map() {
                             <h1>Trip ke Prancis akan mengeluarkan biaya sebesar $15</h1>
                         </div>
                     </Link>
-                    <Link to="../../japan.html" id="japanMap" className="flag">
+                    <Link to="/Japan" id="japanMap" className="flag">
                         <img src="/asset/map/japanFlag.png" />
                         <div className="description">
                             <h1>Trip ke Jepang akan mengeluarkan biaya sebesar $30</h1>

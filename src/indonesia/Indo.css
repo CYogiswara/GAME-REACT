@@ -6,7 +6,6 @@
     :root {
         --pixel-size: 2px;
         --grid-cell: calc(var(--pixel-size) * 16);
-        --bg: #eb9d9a;
     }
 }
 
@@ -33,7 +32,7 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background: var(--bg);
+    background: #eb9d9a;
     display: flex;
     align-items: center;
     justify-content: center;
