@@ -1,8 +1,8 @@
-const Status = ({ bath, hunger, sleep, happiness, health }) => {
+const Status = ({ bath, hunger, sleep, happiness, health, money}) => {
     return (
         <>
             <div><img src="/asset/iconBar/coin.png" className="money-picture"/></div>
-            <div className="money-displayed"></div>
+            <div className="money-displayed">{money}</div>
             <progress value={bath} id="bath" max="100"></progress>
             <progress value={hunger} id="hunger" max="100"></progress>
             <progress value={sleep} id="sleeps" max="100"></progress>

@@ -4,7 +4,6 @@ import Controller from '../components/Controller';
 import DisplayDate from "../components/DisplayDate";
 import Buttons from "../components/buttons";
 import Status from "../components/status";
-import FoodButton from "../components/foodButtons";
 import './Japan.css';
 
 const directions = {
@@ -28,7 +27,7 @@ function Japan() {
     const [walking, setWalking] = useState(false);
     const [heldDirections, setHeldDirections] = useState([]);
     const speed = 1;
-    const [money, setMoney] = useState(100);
+    const [money, setMoney] = useState(() => Number(localStorage.getItem("money")) || 100);
     const [bath, setBath] = useState(() => Number(localStorage.getItem("bath")) || 50);
     const [hunger, setHunger] = useState(() => Number(localStorage.getItem("hunger")) || 50);
     const [sleep, setSleep] = useState(() => Number(localStorage.getItem("sleep")) || 50);
@@ -137,6 +136,7 @@ function Japan() {
             let shower = 100;
             setBath(bath + shower);
             alert("Kamu sedang berendam di pemandian air panas");
+            localStorage.setItem("bath", bath + shower);
         });
     }
     useEffect(() => {
@@ -173,7 +173,8 @@ function Japan() {
             setHunger(prev => Math.min(prev + food.addBar, 100));
             setMoney(prevMoney => prevMoney - food.harga);
             setShowFoods(false);
-            // checkQuestCompletion("makanIndo");    
+            localStorage.setItem("hunger", hunger + food.addBar);
+            localStorage.setItem("money", money - food.harga);
         });
     }
     useEffect(() => {
@@ -184,6 +185,7 @@ function Japan() {
             setShowMakanButton(true);
         } else {
             setShowMakanButton(false);
+            setShowFoods(false);
         }
     }, [position]);
     useEffect(() => {
@@ -267,7 +269,7 @@ function Japan() {
                                     <h3>Quests List</h3>
                                     <ul id="quest-list"></ul>
                                 </div>
-                                <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health} />
+                                <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health} money={money}/>
                                 <DisplayDate />
                                 <div className="button-map">{showMapButton && (<Buttons value="Map" className="map-button" onClick={handleMapClick} />)}</div>
                                 <div className="button-kebun">{showKebunButton && (<Buttons value="Kebun" className={"kebun-button"} onClick={handleKebunClick} />)}</div>
@@ -275,7 +277,7 @@ function Japan() {
                                 <div className="button-mandi">{showMandiButton && (<Buttons value="Mandi" className={"mandi-button"} onClick={handleMandiClick} />)}</div>
                                 <div className="button-makan">{showMakanButton && (<Buttons value="Makan" className={"makan-button"} onClick={MakanClicked} />)}</div>
                                 {showFoods && (
-                                    <div id="makanOptions" className="indo-makan-options">
+                                    <div id="makanOptions" className="japan-makan-options">
                                         {foods.map((food, index) => (
                                             <button key={index} onClick={() => handleMakan(food)} style={{ marginBottom: 8, position: "relative" }} >
                                                 {food.name}

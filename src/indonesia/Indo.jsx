@@ -4,7 +4,6 @@ import Controller from '../components/Controller';
 import DisplayDate from "../components/DisplayDate";
 import Buttons from "../components/buttons";
 import Status from "../components/status";
-import FoodButton from "../components/foodButtons";
 import './Indo.css';
 
 const directions = {
@@ -30,7 +29,7 @@ function Indo() {
     const [walking, setWalking] = useState(false);
     const [heldDirections, setHeldDirections] = useState([]);
     const speed = 1;
-    const [money, setMoney] = useState(100);
+    const [money, setMoney] = useState(() => Number(localStorage.getItem("money")) || 100);
     const [bath, setBath] = useState(() => Number(localStorage.getItem("bath")) || 50);
     const [hunger, setHunger] = useState(() => Number(localStorage.getItem("hunger")) || 50);
     const [sleep, setSleep] = useState(() => Number(localStorage.getItem("sleep")) || 50);
@@ -139,6 +138,7 @@ function Indo() {
             let shower = 100;
             setBath(bath + shower);
             alert("Kamu sedang mandi");
+            localStorage.setItem("bath", bath + shower);
         });
     }
     useEffect(() => {
@@ -174,8 +174,9 @@ function Indo() {
             alert(`Kamu sedang makan ${food.name}`);
             setHunger(prev => Math.min(prev + food.addBar, 100));
             setMoney(prevMoney => prevMoney - food.harga);
-            setShowFoods(false);
-            // checkQuestCompletion("makanIndo");    
+            setShowFoods(false);  
+            localStorage.setItem("hunger", hunger + food.addBar);
+            localStorage.setItem("money", money - food.harga);
         });
     }
     useEffect(() => {
@@ -229,6 +230,7 @@ function Indo() {
         triggerBlackScreen(1000, () => {
             setSleep(prevSleep => prevSleep + 100);
             alert("Kamu sedang tidur");
+            localStorage.setItem("sleep", sleep + 100);
         });
     }
     useEffect(() => {
@@ -321,14 +323,14 @@ function Indo() {
                                     <h3>Quests List</h3>
                                     <ul id="quest-list"></ul>
                                 </div>
-                                <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health} />
+                                <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health} money={money}/>
                                 <DisplayDate />
                                 <div className="button-map">{showMapButton && (<Buttons value="Map" className="map-button" onClick={handleMapClick} />)}</div>
                                 <div className="button-sleep">{showSleepButton && (<Buttons value="Sleep" className={"sleep-button"} onClick={handleSleepClick} />)}</div>
                                 <div className="button-foto">{showFotoButton && (<Buttons value="Foto" className="foto-button" onClick={handleFotoClick} />)}</div>
                                 <div className="button-mandi">{showMandiButton && (<Buttons value="Mandi" className={"mandi-button"} onClick={handleMandiClick} />)}</div>
                                 <div className="button-tenda">{showTendaButton && (<Buttons value="Tenda" className={"tenda-button"} onClick={handleTendaClick} />)}</div>
-                                <div className="button-guild">{showGuildButton && (<Buttons value="Guild" className={"guild-button"} onClick={handleGuildClick}></Buttons>)}</div>
+                                <div className="button-guild">{showGuildButton && (<Buttons value="Guild" className={"guild-button"} onClick={handleGuildClick} />)}</div>
                                 <div className="button-makan">{showMakanButton && (<Buttons value="Makan" className={"makan-button"} onClick={MakanClicked} />)}</div>
                                 {showFoods && (
                                     <div id="makanOptions" className="indo-makan-options">
