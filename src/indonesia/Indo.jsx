@@ -367,7 +367,7 @@ function Indo() {
 
         const canSleep = (currentHours >= 19 && currentHours <= 23) || (currentHours >= 0 && currentHours <= 4);
         if (!canSleep) {
-            alert("Kamu hanya bisa tidur antara pukul 19:00 sampai 03:00!");
+            alert("Kamu hanya bisa tidur antara pukul 19:00 sampai 04:00!");
             return;
         }
         triggerBlackScreen(1000, () => {
