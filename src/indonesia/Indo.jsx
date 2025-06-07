@@ -519,6 +519,7 @@ function Indo() {
 
     return (
         <>
+            <audio src="/asset/musik/musicIndo.mp3" autoPlay loop controls style={{ display: "none" }} />
             {isGameOver ? (
                 <div className="gameover-modal">
                     <div className="gameover-content">

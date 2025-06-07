@@ -406,6 +406,7 @@ function USA() {
 
     return (
         <>
+            <audio src="/asset/musik/musicUSA.mp3" autoPlay loop controls style={{ display: "none" }} />
             {isGameOver ? (
                 <div className="gameover-modal">
                     <div className="gameover-content">

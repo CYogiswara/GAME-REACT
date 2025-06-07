@@ -403,6 +403,7 @@ function Japan() {
 
     return (
         <>
+            <audio src="/asset/musik/musicJepang.mp3" autoPlay loop controls style={{ display: "none" }} />
             {isGameOver ? (
                 <div className="gameover-modal">
                     <div className="gameover-content">
