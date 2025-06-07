@@ -3,50 +3,61 @@ import React, { useState, useEffect } from "react";
 const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 const DisplayDate = () => {
-  const [time, setTime] = useState(() => ({
-    hours: parseInt(localStorage.getItem("hours")) || 0,
-    minutes: parseInt(localStorage.getItem("minutes")) || 0,
-    day: parseInt(localStorage.getItem("day")) || 1,
-    weekDayIndex:
-      daysOfWeek.indexOf(localStorage.getItem("weekDay")) >= 0
-        ? daysOfWeek.indexOf(localStorage.getItem("weekDay"))
-        : 0,
-  }));
+  const [hours, setHours] = useState(() => Number(localStorage.getItem("hours")) || 6);
+  const [minutes, setMinutes] = useState(() => Number(localStorage.getItem("minutes")) || 0);
+  const [day, setDay] = useState(() => Number(localStorage.getItem("day")) || 1);
+  const [weekDay, setWeekDay] = useState(() => localStorage.getItem("weekDay") || "Monday");
+
+  // Interval waktu berjalan
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setMinutes(prev => {
+        let newMinutes = prev + 1;
+        let newHours = hours;
+        let newDay = day;
+        let newWeekDay = weekDay;
+        if (newMinutes >= 60) {
+          newMinutes = 0;
+          newHours = hours + 1;
+          if (newHours >= 24) {
+            newHours = 0;
+            newDay = day + 1;
+            let weekDayIndex = daysOfWeek.indexOf(weekDay);
+            weekDayIndex = (weekDayIndex + 1) % 7;
+            newWeekDay = daysOfWeek[weekDayIndex];
+            setDay(newDay);
+            setWeekDay(newWeekDay);
+            localStorage.setItem("day", newDay);
+            localStorage.setItem("weekDay", newWeekDay);
+          }
+          setHours(newHours);
+          localStorage.setItem("hours", newHours);
+        }
+        localStorage.setItem("minutes", newMinutes);
+        return newMinutes;
+      });
+    }, 300);
+    return () => clearInterval(timer);
+  }, [hours, day, weekDay]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(prev => {
-        let { hours, minutes, day, weekDayIndex } = prev;
-
-        minutes++;
-        if (minutes >= 60) {
-          minutes = 0;
-          hours++;
-          if (hours >= 24) {
-            hours = 0;
-            day++;
-            weekDayIndex = (weekDayIndex + 1) % 7;
-          }
-        }
-
-      
-        localStorage.setItem("hours", hours);
-        localStorage.setItem("minutes", minutes);
-        localStorage.setItem("day", day);
-        localStorage.setItem("weekDay", daysOfWeek[weekDayIndex]);
-
-        return { hours, minutes, day, weekDayIndex };
-      });
-    }, 300); 
-
-    return () => clearInterval(interval);
+    const syncFromStorage = () => {
+      setHours(Number(localStorage.getItem("hours")) || 6);
+      setMinutes(Number(localStorage.getItem("minutes")) || 0);
+      setDay(Number(localStorage.getItem("day")) || 1);
+      setWeekDay(localStorage.getItem("weekDay") || "Monday");
+    };
+    window.addEventListener("storage", syncFromStorage);
+    window.addEventListener("force-time-sync", syncFromStorage); // listen custom event
+    syncFromStorage();
+    return () => {
+      window.removeEventListener("storage", syncFromStorage);
+      window.removeEventListener("force-time-sync", syncFromStorage);
+    };
   }, []);
-
-  const { hours, minutes, day, weekDayIndex } = time;
 
   const formatTime = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
   const greeting = getGreeting(hours);
-  const weekDay = daysOfWeek[weekDayIndex];
   const playerName = localStorage.getItem("playerName") || "Player";
 
   function getGreeting(hour) {

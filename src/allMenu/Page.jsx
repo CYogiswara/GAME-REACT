@@ -120,7 +120,7 @@ function Page() {
         localStorage.setItem("playerName", playerName);
         localStorage.setItem("selectedCharacter", spritesheets[activeIndex]);
         localStorage.setItem("money", 100);
-        localStorage.setItem("hours", "17");
+        localStorage.setItem("hours", "18");
         localStorage.setItem("minutes", "0");
         localStorage.setItem("day", 1);
         localStorage.setItem("weekDay", "Monday");

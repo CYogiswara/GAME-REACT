@@ -17,6 +17,11 @@ const directions = {
 function Indo() {
     let Navigate = useNavigate();
     const selectedCharacter = localStorage.getItem("selectedCharacter");
+    const [hours, setHours] = useState(() => Number(localStorage.getItem("hours")) || 6);
+    const [minutes, setMinutes] = useState(() => Number(localStorage.getItem("minutes")) || 0);
+    const [day, setDay] = useState(() => Number(localStorage.getItem("day")) || 1);
+    const [weekDay, setWeekDay] = useState(() => localStorage.getItem("weekDay") || "Monday");
+
     const [showMapButton, setShowMapButton] = useState(false);
     const [showMandiButton, setShowMandiButton] = useState(false);
     const [showFotoButton, setShowFotoButton] = useState(false);
@@ -354,17 +359,35 @@ function Indo() {
     }
     // ========================================SLEEP BUTTON================================================
     function handleSleepClick() {
-        let hours = Number(localStorage.getItem("hours")) || 0;
-        const canSleep = (hours >= 19 && hours <= 23) || (hours >= 0 && hours <= 3);
+        const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        let currentHours = Number(localStorage.getItem("hours")) || hours;
+        let currentDay = Number(localStorage.getItem("day")) || day;
+        let currentWeekDay = localStorage.getItem("weekDay") || weekDay;
+        let weekDayIndex = daysOfWeek.indexOf(currentWeekDay);
+
+        const canSleep = (currentHours >= 19 && currentHours <= 23) || (currentHours >= 0 && currentHours <= 4);
         if (!canSleep) {
             alert("Kamu hanya bisa tidur antara pukul 19:00 sampai 03:00!");
             return;
         }
-
         triggerBlackScreen(1000, () => {
             setSleep(prevSleep => prevSleep + 100);
             alert("Kamu sedang tidur");
         });
+        if (currentHours >= 19 && currentHours <= 23) {
+            currentDay += 1;
+            weekDayIndex = (weekDayIndex + 1) % 7;
+            setDay(currentDay);
+            setWeekDay(daysOfWeek[weekDayIndex]);
+            localStorage.setItem("day", currentDay);
+            localStorage.setItem("weekDay", daysOfWeek[weekDayIndex]);
+        }
+        setHours(6);
+        setMinutes(0);
+        localStorage.setItem("hours", "6");
+        localStorage.setItem("minutes", "0");
+        window.dispatchEvent(new Event("force-time-sync"));
+
     }
     useEffect(() => {
         const sleepX = 290;
@@ -385,6 +408,37 @@ function Indo() {
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [showSleepButton]);
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setMinutes(prev => {
+                let newMinutes = prev + 1;
+                let newHours = hours;
+                let newDay = day;
+                let newWeekDay = weekDay;
+                if (newMinutes >= 60) {
+                    newMinutes = 0;
+                    newHours = hours + 1;
+                    if (newHours >= 24) {
+                        newHours = 0;
+                        newDay = day + 1;
+                        const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+                        let weekDayIndex = daysOfWeek.indexOf(weekDay);
+                        weekDayIndex = (weekDayIndex + 1) % 7;
+                        newWeekDay = daysOfWeek[weekDayIndex];
+                        setDay(newDay);
+                        setWeekDay(newWeekDay);
+                        localStorage.setItem("day", newDay);
+                        localStorage.setItem("weekDay", newWeekDay);
+                    }
+                    setHours(newHours);
+                    localStorage.setItem("hours", newHours);
+                }
+                localStorage.setItem("minutes", newMinutes);
+                return newMinutes;
+            });
+        }, 300);
+        return () => clearInterval(timer);
+    }, [hours, day, weekDay]);
 
     //======================================GUILD BUTTON======================================
     useEffect(() => {
