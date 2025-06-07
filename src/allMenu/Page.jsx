@@ -128,9 +128,9 @@ function Page() {
         localStorage.setItem("bath", 50);
         localStorage.setItem("hunger", 50);
         localStorage.setItem("sleeps", 50);
-        localStorage.setItem("happy", 50);
+        localStorage.setItem("happiness", 50);
         localStorage.setItem("health", 100);
-        localStorage.removeItem("currentQuest");
+        localStorage.removeItem("displayedQuests");
         navigate("/indo");
     };
 

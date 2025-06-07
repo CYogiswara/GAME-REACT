@@ -27,6 +27,7 @@ function Japan() {
     const [walking, setWalking] = useState(false);
     const [heldDirections, setHeldDirections] = useState([]);
     const speed = 1;
+
     const [money, setMoney] = useState(() => Number(localStorage.getItem("money")) || 100);
     const [bath, setBath] = useState(() => Number(localStorage.getItem("bath")) || 50);
     const [hunger, setHunger] = useState(() => Number(localStorage.getItem("hunger")) || 50);
@@ -35,6 +36,9 @@ function Japan() {
     const [health, setHealth] = useState(() => Number(localStorage.getItem("health")) || 50);
     const [displayedQuests, setDisplayedQuests] = useState([]);
     const [showFoods, setShowFoods] = useState(false);
+
+    const [isGameOver, setIsGameOver] = useState(false);
+    const [gameOverReason, setGameOverReason] = useState("");
 
     // Black screen state
     const [showBlackScreen, setShowBlackScreen] = useState(false);
@@ -102,6 +106,97 @@ function Japan() {
     const characterStyle = {
         transform: `translate3d(${position.x * pixelSize}px, ${position.y * pixelSize}px, 0)`
     };
+
+    //=====================================STATUS BAR=========================================
+    useEffect(() => {
+        if (health <= 0) {
+            setGameOverReason("Game Over! Kamu Mati!!!");
+            setShowBlackScreen(true);
+            setTimeout(() => {
+                setIsGameOver(true);
+                setShowBlackScreen(false);
+            }, 1000);
+            localStorage.setItem("money", 20);
+        } else if (money < 0) {
+            setGameOverReason("Game Over! Uang kamu habis!!!");
+            setShowBlackScreen(true);
+            setTimeout(() => {
+                setIsGameOver(true);
+                setShowBlackScreen(false);
+            }, 1000);
+            localStorage.setItem("money", 50);
+        }
+    }, [health, money]);
+    useEffect(() => {
+        const bathInterval = setInterval(() => {
+            setBath(prev => {
+                const newVal = Math.max(prev - 1, 0);
+                localStorage.setItem("bath", newVal);
+                return newVal;
+            });
+        }, 2000);
+        return () => clearInterval(bathInterval);
+    }, []);
+    useEffect(() => {
+        const sleepInterval = setInterval(() => {
+            setSleep(prev => {
+                const newVal = Math.max(prev - 1, 0);
+                localStorage.setItem("sleeps", newVal);
+                return newVal;
+            });
+        }, 3000);
+        return () => clearInterval(sleepInterval);
+    }, []);
+    useEffect(() => {
+        const happinessInterval = setInterval(() => {
+            setHappiness(prev => {
+                const newVal = Math.max(prev - 1, 0);
+                localStorage.setItem("happiness", newVal);
+                return newVal;
+            });
+        }, 3000);
+        return () => clearInterval(happinessInterval);
+    }, []);
+    useEffect(() => {
+        const hungerInterval = setInterval(() => {
+            setHunger(prev => {
+                const newVal = Math.max(prev - 1, 0);
+                localStorage.setItem("hunger", newVal);
+                return newVal;
+            });
+        }, 1500);
+        return () => clearInterval(hungerInterval);
+    }, []);
+    useEffect(() => {
+        let intervalTime = 1400;
+        if (sleep === 0 || bath === 0) {
+            intervalTime = 700;
+        }
+        const happinessInterval = setInterval(() => {
+            setHappiness(prev => {
+                const newVal = Math.max(prev - 1, 0);
+                localStorage.setItem("happiness", newVal);
+                return newVal;
+            });
+        }, intervalTime);
+        return () => clearInterval(happinessInterval);
+    }, [sleep, bath]);
+    useEffect(() => {
+        const healthInterval = setInterval(() => {
+            setHealth(prev => {
+                let newHealth = prev;
+                if (hunger === 0 || happiness === 0) {
+                    newHealth = Math.max(prev - 1, 0);
+                } else if (hunger > 60 && happiness > 60) {
+                    newHealth = Math.min(prev + 1, 100);
+                }
+                localStorage.setItem("health", newHealth);
+                return newHealth;
+            });
+        }, 100);
+        return () => clearInterval(healthInterval);
+    }, [hunger, happiness]);
+
     //QUESTS
     useEffect(() => {
         const savedQuests = localStorage.getItem("displayedQuests");
@@ -308,61 +403,74 @@ function Japan() {
 
     return (
         <>
-            <div className="japan-root">
-                <div className={`black-screen${showBlackScreen ? " show" : ""}`} id="blackScreen"></div>
-                <div className="frame">
-                    <div className="camera">
-                        <div className="japan-map pixel-art" style={mapStyle}>
-                            <div>
-                                <div className="character" facing={facing} walking={walking ? "true" : "false"} style={characterStyle}>
-                                    <div className="shadow pixel-art"></div>
-                                    <div className="character_spritesheet pixel-art" style={{ backgroundImage: `url('${selectedCharacter}')` }}
-                                    ></div>
-                                </div>
-                                <div id="quest-display">
-                                    <h3>Quests List</h3>
-                                    <ul id="quest-list">
-                                        {displayedQuests.length === 0 ? (
-                                            <li>Tidak ada quest aktif.</li>
-                                        ) : (
-                                            displayedQuests.map((quest, idx) => (
-                                                <li key={idx}>
-                                                    {quest.name}
-                                                    <span
-                                                        className="info-quest"
-                                                        data-info={`Kamu akan mendapatkan $${quest.gaji}`}
-                                                        style={{ marginLeft: 8, cursor: "pointer" }}
-                                                    >
-                                                        (i)
-                                                    </span>
-                                                </li>
-                                            ))
-                                        )}
-                                    </ul>
-                                </div>
-                                <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health} money={money} />
-                                <DisplayDate />
-                                <div className="button-map">{showMapButton && (<Buttons value="Map" className="map-button" onClick={handleMapClick} />)}</div>
-                                <div className="button-kebun">{showKebunButton && (<Buttons value="Kebun" className={"kebun-button"} onClick={handleKebunClick} />)}</div>
-                                <div className="button-foto">{showFotoButton && (<Buttons value="Rumah Kakek" className="foto-button" onClick={handleFotoClick} />)}</div>
-                                <div className="button-mandi">{showMandiButton && (<Buttons value="Mandi" className={"mandi-button"} onClick={handleMandiClick} />)}</div>
-                                <div className="button-makan">{showMakanButton && (<Buttons value="Makan" className={"makan-button"} onClick={MakanClicked} />)}</div>
-                                {showFoods && (
-                                    <div id="makanOptions" className="japan-makan-options">
-                                        {foods.map((food, index) => (
-                                            <button key={index} onClick={() => handleMakan(food)} style={{ marginBottom: 8, position: "relative" }} >
-                                                {food.name}
-                                                <span className="info-icon" data-cost={`Harga: ${food.cost}`} style={{ marginLeft: 8, cursor: "pointer" }}>(i)</span>
-                                            </button>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
+            {isGameOver ? (
+                <div className="gameover-modal">
+                    <div className="gameover-content">
+                        <img src="/asset/iconBar/gameOver.png" alt="Game Over" className="gameover-img" />
+                        <div className="gameover-reason">{gameOverReason}</div>
+                        <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
+                            <button onClick={() => window.location.href = "/"}>Back to Main Menu</button>
+                            <button onClick={() => window.location.reload()}>Restart Check Point</button>
                         </div>
                     </div>
                 </div>
-                <Controller onDirectionChange={setHeldDirections} />
-            </div>
+            ) : (
+                <div className="japan-root">
+                    <div className={`black-screen${showBlackScreen ? " show" : ""}`} id="blackScreen"></div>
+                    <div className="frame">
+                        <div className="camera">
+                            <div className="japan-map pixel-art" style={mapStyle}>
+                                <div>
+                                    <div className="character" facing={facing} walking={walking ? "true" : "false"} style={characterStyle}>
+                                        <div className="shadow pixel-art"></div>
+                                        <div className="character_spritesheet pixel-art" style={{ backgroundImage: `url('${selectedCharacter}')` }}
+                                        ></div>
+                                    </div>
+                                    <div id="quest-display">
+                                        <h3>Quests List</h3>
+                                        <ul id="quest-list">
+                                            {displayedQuests.length === 0 ? (
+                                                <li>Tidak ada quest aktif.</li>
+                                            ) : (
+                                                displayedQuests.map((quest, idx) => (
+                                                    <li key={idx}>
+                                                        {quest.name}
+                                                        <span
+                                                            className="info-quest"
+                                                            data-info={`Kamu akan mendapatkan $${quest.gaji}`}
+                                                            style={{ marginLeft: 8, cursor: "pointer" }}
+                                                        >
+                                                            (i)
+                                                        </span>
+                                                    </li>
+                                                ))
+                                            )}
+                                        </ul>
+                                    </div>
+                                    <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health} money={money} />
+                                    <DisplayDate />
+                                    <div className="button-map">{showMapButton && (<Buttons value="Map" className="map-button" onClick={handleMapClick} />)}</div>
+                                    <div className="button-kebun">{showKebunButton && (<Buttons value="Kebun" className={"kebun-button"} onClick={handleKebunClick} />)}</div>
+                                    <div className="button-foto">{showFotoButton && (<Buttons value="Rumah Kakek" className="foto-button" onClick={handleFotoClick} />)}</div>
+                                    <div className="button-mandi">{showMandiButton && (<Buttons value="Mandi" className={"mandi-button"} onClick={handleMandiClick} />)}</div>
+                                    <div className="button-makan">{showMakanButton && (<Buttons value="Makan" className={"makan-button"} onClick={MakanClicked} />)}</div>
+                                    {showFoods && (
+                                        <div id="makanOptions" className="japan-makan-options">
+                                            {foods.map((food, index) => (
+                                                <button key={index} onClick={() => handleMakan(food)} style={{ marginBottom: 8, position: "relative" }} >
+                                                    {food.name}
+                                                    <span className="info-icon" data-cost={`Harga: ${food.cost}`} style={{ marginLeft: 8, cursor: "pointer" }}>(i)</span>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <Controller onDirectionChange={setHeldDirections} />
+                </div>
+            )}
         </>
     );
 }
