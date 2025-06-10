@@ -25,7 +25,22 @@ function Mesir() {
     const [facing, setFacing] = useState("down");
     const [walking, setWalking] = useState(false);
     const [heldDirections, setHeldDirections] = useState([]);
-    const speed = 1;
+    const [speed, setSpeed] = useState(1);
+    function toggleSpeed() {
+        if (speed === 1) {
+            setSpeed(3);
+            localStorage.setItem("speed", 3);
+        } else {
+            setSpeed(1);
+            localStorage.setItem("speed", 1);
+        }
+    }
+    useEffect(() => {
+        const savedSpeed = Number(localStorage.getItem("speed"));
+        if (savedSpeed === 3 || savedSpeed === 1) {
+            setSpeed(savedSpeed);
+        }
+    }, []);
 
     const [money, setMoney] = useState(() => Number(localStorage.getItem("money")) || 100);
     const [bath, setBath] = useState(() => Number(localStorage.getItem("bath")) || 50);
@@ -94,7 +109,7 @@ function Mesir() {
         };
         animationFrameId = window.requestAnimationFrame(step);
         return () => window.cancelAnimationFrame(animationFrameId);
-    }, []);
+    }, [speed]);
 
     const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--pixel-size')) || 2;
     const camera_left = pixelSize * 66;
@@ -414,6 +429,7 @@ function Mesir() {
                                     </div>
                                     <Status bath={bath} hunger={hunger} sleep={sleep} happiness={happiness} health={health} money={money} />
                                     <DisplayDate />
+                                    <button style={{ position: "absolute", top: 10, right: 590, zIndex: 1000, padding: "8px 16px", background: speed === 3 ? "#4caf50" : "#2196f3", color: "#fff", border: "none", borderRadius: 4, cursor: "pointer" }} onClick={toggleSpeed} > Speed: {speed}x </button>
                                     <div className="button-map">{showMapButton && (<Buttons value="Map" className="map-button" onClick={handleMapClick} />)}</div>
                                     <div className="button-foto">{showFotoButton && (<Buttons value="Piramida" className="foto-button" onClick={handleFotoClick} />)}</div>
                                     <div className="button-mandi">{showMandiButton && (<Buttons value="Sungai Nil" className={"mandi-button"} onClick={handleMandiClick} />)}</div>
