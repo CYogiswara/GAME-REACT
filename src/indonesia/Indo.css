@@ -40,7 +40,7 @@
 
 .indo-root .indo-map {
     image-rendering: pixelated;
-    background-image: url("./mapIndo.png");
+    background-image: url("../../public/asset/allMap/mapIndo.png");
     background-size: 100%;
     width: calc(40 * var(--grid-cell));
     height: calc(19 * var(--grid-cell) + 4 * var(--pixel-size));
@@ -464,7 +464,6 @@
     width: calc(var(--pixel-size) * 75);
 }
 
-//=======================GAME OVER=========================//
 .gameover-modal {
     position: fixed;
     inset: 0;

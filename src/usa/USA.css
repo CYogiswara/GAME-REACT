@@ -40,7 +40,7 @@
 
 .usa-root .usa-map {
     image-rendering: pixelated;
-    background-image: url("./mapUSA.png");
+    background-image: url("../../public/asset/allMap/mapUSA.png");
     background-size: 100%;
     width: calc(62 * var(--grid-cell));
     height: calc(19 * var(--grid-cell) + 11 * var(--pixel-size));
@@ -463,7 +463,7 @@
 }
 
 
-//=======================GAME OVER=========================//
+
 .gameover-modal {
     position: fixed;
     inset: 0;

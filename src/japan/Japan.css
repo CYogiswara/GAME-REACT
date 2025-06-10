@@ -40,7 +40,7 @@
 
 .japan-root .japan-map {
     image-rendering: pixelated;
-    background-image: url("./mapJapan.png");
+    background-image: url("../../public/asset/allMap/mapJapan.png");
     background-size: 100%;
     width: calc(40 * var(--grid-cell));
     height: calc(18 * var(--grid-cell) + 11 * var(--pixel-size));
@@ -462,7 +462,6 @@
 }
 
 
-//=======================GAME OVER=========================//
 .gameover-modal {
     position: fixed;
     inset: 0;

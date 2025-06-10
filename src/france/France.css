@@ -40,7 +40,7 @@
 
 .france-root .france-map {
     image-rendering: pixelated;
-    background-image: url("./mapFrance.png");
+    background-image: url("../../public/asset/allMap/mapFrance.png");
     background-size: 100%;
     width: calc(35 * var(--grid-cell));
     height: calc(16 * var(--grid-cell) + 8 * var(--pixel-size));
@@ -448,7 +448,6 @@
 }
 
 
-//=======================GAME OVER=========================//
 .gameover-modal {
     position: fixed;
     inset: 0;

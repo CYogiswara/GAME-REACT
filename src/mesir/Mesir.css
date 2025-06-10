@@ -40,7 +40,7 @@
 
 .mesir-root .mesir-map {
     image-rendering: pixelated;
-    background-image: url("./mapMesir.png");
+    background-image: url("../../public/asset/allMap/mapMesir.png");
     background-size: 100%;
     width: calc(40 * var(--grid-cell));
     height: calc(17 * var(--grid-cell) + 15 * var(--pixel-size));
@@ -450,7 +450,6 @@
 }
 
 
-//=======================GAME OVER=========================//
 .gameover-modal {
     position: fixed;
     inset: 0;
